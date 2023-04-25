@@ -1,0 +1,65 @@
+<%- include ('../userhomeLayout/header.ejs') %>
+
+
+    <div id="all">
+        <div id="content">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-lg-9">
+                        <div class="box">
+                            <h1>Select yor Address</h1>
+                            <div class="left"><a href="/user/addAddress" class="btn btn-outline-secondary"> ADD NEW
+                                    ADDRESS</a></div>
+                        </div>
+                        <div class="row products">
+
+                            <% for(let i=0;i<user.address.length;i++){%>
+                                <div class="col-lg-4 col-md-6 ">
+                                    <div class="product">
+                                        
+                                            <a href="/checkout/address?id=<%=i%>" class="nav-link ">
+                                                
+                                                    <div class="product">
+
+
+                                                        <div class="text">
+                                                            <h3>
+                                                                <%= user.address[i].name %>
+                                                            </h3>
+                                                            <p>
+                                                                <%= user.address[i].home %>
+                                                            </p>
+                                                            <p>
+                                                                <%= user.address[i].street %>
+                                                            </p>
+                                                            <p>
+                                                                <%= user.address[i].district %>
+                                                            </p>
+                                                            <p>
+                                                                <%= user.address[i].zip %>
+                                                            </p>
+                                                            <p>
+                                                                <%= user.address[i].state %>
+                                                            </p>
+
+                                                        </div>
+
+                                                    </div>
+                                            </a>
+                                            <div class="d-flex justify-content-center mb-2">
+                                                <a href="/user/removeAddress?index=<%= i%>"><button type="button" class="btn btn-primary">REMOVE</button></a>
+                                               <a href="/user/editaddress?index=<%= i%> "> <button type="button" class="btn btn-outline-primary ms-1">EDIT</button></a>
+                                            </div>
+                                    </div>
+                                </div>
+
+                                <% }%>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%- include ('../userhomeLayout/footer.ejs') %>

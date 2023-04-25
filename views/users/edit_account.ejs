@@ -1,0 +1,172 @@
+<%- include ('../userhomeLayout/header.ejs') %>
+
+  <div id="all">
+    <div id="content">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <!-- breadcrumb-->
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li aria-current="page" class="breadcrumb-item active">My account</li>
+              </ol>
+            </nav>
+          </div>
+          <div class="col-lg-3">
+            <!--
+          *** CUSTOMER MENU ***
+          _________________________________________________________
+          -->
+            
+            <!-- /.col-lg-3-->
+            <!-- *** CUSTOMER MENU END ***-->
+          </div>
+          <div class="col-lg-12">
+            <div class="box">
+              <h1>EDIT ACCOUNT DETAILS</h1>
+              
+              
+
+
+              
+
+
+              <section style="background-color: #eee;">
+                <div class="container py-5">
+
+
+                  <div class="row">
+                    <div class="col-lg-4">
+                      <div class="card mb-4">
+                        <div class="card-body text-center">
+                          <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
+                            alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
+                          <h5 class="my-3">
+                            <%= user.name %>
+                          </h5>
+                          <p class="text-muted mb-1">Full Stack Developer</p>
+                          <p class="text-muted mb-4">Bay Area, San Francisco, CA</p>
+                          <div class="d-flex justify-content-center mb-2">
+                            
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                    <div class="col-lg-8">
+                      <div class="card mb-4">
+                        <div class="card-body">
+                          <form method="post" onsubmit="return validateForm()" action="/updateProfile" id="form1">
+                            <div class="row">
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label for="name">Name</label>
+                                  <input id="name" name="name" type="text" class="form-control" value="<%=user.name %>">
+                                  <span class="text-danger error"></span>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label for="email">Email</label>
+                                  <input id="email" name="email" type="email" class="form-control" value="<%=user.email  %>">
+                                  <span class="text-danger error"></span>
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label for="mobile">Mobile</label>
+                                  <input id="mobile" name="mobile" type="number" class="form-control" value="<%=user.mobile %>">
+                                  <span class="text-danger error"></span>
+                                </div>
+                              </div>
+                            </div>
+                            <!-- /.row-->
+                            <div class="col-md-12 text-center">
+                              <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save changes</button>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="card mb-4 mb-md-0">
+
+
+
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="card mb-4 mb-md-0">
+
+
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <%- include ('../userhomeLayout/footer.ejs') %>
+
+  <script>
+     const form = document.getElementById('form1')
+      const name1 = document.getElementById('name')
+      const email1 = document.getElementById('email')
+      const mobile1 = document.getElementById('mobile')
+
+      const seterror = (element, message) => {
+        const inputControll = element.parentElement;
+        const errorDisplay = inputControll.querySelector('.error')
+
+        errorDisplay.innerText = message
+        inputControll.classList.add('error')
+        inputControll.classList.remove('success')
+      }
+      const setSuccess = (element) => {
+        const inputControll = element.parentElement;
+        const errorDisplay = inputControll.querySelector('.error')
+
+        errorDisplay.innerText = ''
+        inputControll.classList.remove('success')
+        inputControll.classList.add('error')
+      }
+
+      form.addEventListener('submit', e =>{
+        const profilename = name1.value.trim()
+        const profileemail = email1.value.trim()
+        const profilemobile = mobile1.value.trim()
+
+        if (profilename == '') {
+          seterror(name1, 'this field is required')
+          e.preventDefault()
+        } else {
+          setSuccess(name1)
+        }
+        //////////////////////////
+        if (profileemail == '') {
+          seterror(email1, 'this field is required')
+          e.preventDefault()
+        } else {
+          setSuccess(email1)
+        }
+        ///////////////////////
+        if (profilemobile == '') {
+          seterror(mobile1, 'this field is required')
+          e.preventDefault()
+        } else {
+          setSuccess(mobile1)
+        }
+      })
+
+  </script>

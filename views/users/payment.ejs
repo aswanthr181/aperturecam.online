@@ -1,0 +1,500 @@
+<style>
+  @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+
+
+
+
+
+
+  .mcard-coupon {
+    width: 400px;
+    margin-top: 10px;
+    height: 180px;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.2);
+    background-color: #fff;
+    padding: 10px 14px;
+    position: relative;
+  }
+
+  .mmain,
+  .mcopy-button {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 10px;
+    align-items: center;
+  }
+
+  .mcard-coupon::after {
+    position: absolute;
+    content: "";
+    height: 40px;
+    right: -20px;
+    border-radius: 40px;
+    z-index: 1;
+    top: 70px;
+    background-color: #dc143c;
+    width: 40px;
+  }
+
+  .mcard-coupon::before {
+    position: absolute;
+    content: "";
+    height: 40px;
+    left: -20px;
+    border-radius: 40px;
+    z-index: 1;
+    top: 70px;
+    background-color: #dc143c;
+    width: 40px;
+  }
+
+  .mco-img img {
+    width: 100px;
+    height: 100px;
+  }
+
+
+  .mcontent h1 {
+    font-size: 35px;
+    margin-left: -20px;
+    color: #565656;
+  }
+
+  .mcontent h1 span {
+    font-size: 18px;
+  }
+
+  .mcontent h2 {
+    font-size: 18px;
+    margin-left: -20px;
+    color: #565656;
+    text-transform: uppercase;
+  }
+
+  .mcontent p {
+    font-size: 16px;
+    color: #696969;
+    margin-left: -20px;
+  }
+
+  .mcopy-button {
+    margin: 12px 0 -5px 0;
+    height: 45px;
+    border-radius: 4px;
+    padding: 0 5px;
+    border: 1px solid #e1e1e1;
+  }
+
+  .mcopy-button input {
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    font-size: 15px;
+  }
+
+  .mcopy-button button {
+    padding: 5px 20px;
+    background-color: #dc143c;
+    color: #fff;
+    border: 1px solid transparent;
+  }
+
+  .buy {
+    position: absolute;
+    content: "";
+    bottom: 20px;
+    left: 20px;
+    background-color: #dc143c;
+  }
+</style>
+<%- include ('../userhomeLayout/header.ejs') %>
+  <div id="all">
+    <div id="content">
+      <div class="container">
+        <div class="row">
+          <% if(cartData==null){ %>
+            <h1>shop</h1>
+            <% }else{ %>
+             
+
+          <div class="col-lg-12">
+            <!-- breadcrumb-->
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li aria-current="page" class="breadcrumb-item active">Checkout - Payment method</li>
+              </ol>
+            </nav>
+          </div>
+          <div id="checkout" class="col-lg-9">
+            <div class="box">
+              <form method="post" onsubmit="return validateForm()" id="form1"
+                action="/order/place?address=<%= address%> ">
+                <h1>Checkout - Payment method</h1>
+                <div class="nav flex-column flex-sm-row nav-pills"><a href="checkout1.html"
+                    class="nav-link flex-sm-fill text-sm-center"> <i class="fa fa-map-marker"> </i>Address</a><a
+                    href="checkout3.html" class="nav-link flex-sm-fill text-sm-center active"> <i class="fa fa-money">
+                    </i>Payment Method</a><a href="#" class="nav-link flex-sm-fill text-sm-center disabled"> <i
+                      class="fa fa-eye"> </i>Order Review</a></div>
+                <div class="content py-3">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="box payment-method">
+                        <h4>Pay using Wallet</h4>
+                        <p>Balance: <%=user.wallet %>
+                        </p>
+
+                        <div class="box-footer text-center">
+                          <% if(user.wallet<cartData.grandTotalPrice){ %>
+                          <input type="radio" name="payment" id="wallet" value="wallet" disabled>
+                          <span class="text-danger">insufficient balance</span>
+                           <% }else{ %>
+                            <input type="radio" name="payment" id="wallet" value="wallet">
+                            <% } %>
+                          <span class="text-danger error"></span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="box payment-method">
+                        <h4>RazorPay</h4>
+                        <p>Online Payment.</p>
+                        <div class="box-footer text-center">
+                          <input type="radio" name="payment" id="razor" value="razorpay">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="box payment-method">
+                        <h4>Cash on delivery</h4>
+                        <p>You pay when you get it.</p>
+                        <div class="box-footer text-center">
+                          <input type="radio" name="payment" id="cod" value="cod">
+                          <span class="text-danger error"></span>
+                        </div>
+
+                      </div>
+
+                    </div>
+                    <span id="span" class="text-danger error"></span>
+                    
+                  </div>
+                  <!-- /.row-->
+                </div>
+                <!-- /.content-->
+                <div class="box-footer d-flex justify-content-between"><a href="checkout2.html"
+                    class="btn btn-outline-secondary"><i class="fa fa-chevron-left"></i>Back to Shipping Method</a>
+                  <button type="submit" class="btn btn-primary">Continue to Order Review<i
+                      class="fa fa-chevron-right"></i></button>
+                </div>
+              </form>
+              <div style="text-align: center;">
+                <% if(sweetalert=="exist" ){ %>
+                  <script>
+                    swal({
+                      title: "ALREADY EXIST",
+                      text: "try another",
+                      imageUrl: 'thumbs-up.jpg'
+                    });
+
+                  </script>
+                  <% } else if(sweetalert=="success" ) {%>
+                    <script>
+                      swal({
+                        title: "ORDER CONFIRMED",
+                        text: "SUCCESS",
+                        imageUrl: 'thumbs-up.jpg'
+                      });
+
+                    </script>
+                    <% } %>
+              </div>
+              <!-- /.box-->
+            </div>
+          </div>
+          <!-- /.col-lg-9-->
+          <div class="col-lg-3">
+            <div class="box">
+              <div class="box-header">
+                <h4 class="mb-0">Coupon code</h4>
+              </div>
+              <p class="text-muted">If you have a coupon code, please enter it in the box below.</p>
+              <form>
+                <div class="input-group">
+                  <input type="text" id="search12" class="form-control" name="search"><span class="input-group-append">
+                    <button onclick="coupon()" type="button" class="btn btn-primary"><i
+                        class="fa fa-gift"></i></button></span>
+                </div>
+                <!-- /input-group-->
+              </form>
+              
+            </div>
+            <div id="order-summary" class="card">
+              <div class="card-header">
+                <h3 class="mt-4 mb-4">Order summary</h3>
+              </div>
+              <div class="card-body">
+                <p class="text-muted">Shipping and additional costs are calculated based on the values you have entered.
+                </p>
+                <div class="table-responsive">
+                  <table class="table">
+                    <tbody>
+                      <tr>
+                        <td>Order subtotal</td>
+                        <th>₹<%= cartData.grandTotalPrice%>
+                        </th>
+                      </tr>
+                      <tr>
+                        <td>Shipping and handling</td>
+                        <th>₹10.00</th>
+                      </tr>
+                      <tr>
+                        <td>Coupon Discount</td>
+                        <th class="applyc">
+                          <a href="exampleModalLong" data-toggle="modal" data-target="#exampleModalLong">Apply
+                            Coupon</a>
+                            
+
+                        </th>
+                      </tr>
+                      
+                      <tr class="total">
+                        <td>Total</td>
+                        <th class="grand">₹<%= cartData.grandTotalPrice%>
+                        </th>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                </div>
+              </div>
+            </div>
+          </div>
+          
+            <% } %>
+          <!-- /.col-lg-3-->
+        </div>
+        <% if(sweetalert=="success" ) {%>
+          <script>
+            swal({
+              title: "ORDER CONFIRMED",
+              text: "SUCCESS",
+              imageUrl: 'thumbs-up.jpg'
+            });
+
+          </script>
+          <% } %>
+      </div>
+
+
+    </div>
+  </div>
+
+
+
+  <div class="modal fade " id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+    aria-hidden="true" style="margin-top: 75px;">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-danger">
+          <h1>lll</h1>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <% if(coupons.length>0){ %>
+          <% for(let i=0;i<coupons.length;i++){ %>
+            <div class="modal-body bg-danger">
+              <div class="container " id="coupon-container">
+
+                <div class="mcard-coupon">
+                  <div class="mmain">
+                    <div class="mco-img">
+                      <img src="https://i.pinimg.com/originals/c7/84/67/c78467db9ff497393cb548a48f02d451.png" alt="" />
+                    </div>
+                    <div class="vertical"></div>
+                    <div class="mcontent">
+                      <h4>
+                        <%= coupons[i].couponId %>
+                      </h4>
+                      <h6>
+                        <%= coupons[i].discount %>%<span>discount on
+                            minimum purchase of ₹<%= coupons[i].minAmount %> 
+                          </span>
+                      </h6>
+                      <p>Valid till <%= coupons[i].expiryDate %>
+                      </p>
+                    </div>
+                  </div>
+                  <div class="mcopy-button">
+                    <input id="search12" type="text" readonly value="<%= coupons[i].couponId %>" />
+                    <button onclick="coupon('<%= coupons[i].couponId %>')" class="copybtn">APPLY</button>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+            <%} %>
+              <%} %>
+
+      </div>
+    </div>
+  </div>
+
+  <%- include ('../userhomeLayout/footer.ejs') %>
+
+    <script>
+
+      const form = document.getElementById('form1')
+      const wallet = document.getElementById('wallet')
+      // const razor=document.getElementById('razor')
+      const cod = document.getElementById('cod')
+
+      const seterror = (element, message) => {
+        const inputControll = element.parentElement;
+        const errorDisplay = inputControll.querySelector('.error')
+
+        errorDisplay.innerText = message
+        inputControll.classList.add('error')
+        inputControll.classList.remove('success')
+      }
+      const setSuccess = (element) => {
+        const inputControll = element.parentElement;
+        const errorDisplay = inputControll.querySelector('.error')
+
+        errorDisplay.innerText = ''
+        inputControll.classList.remove('success')
+        inputControll.classList.add('error')
+      }
+
+      form.addEventListener('submit', e => {
+        if (($(`#wallet`).is(`:checked`) == true) || ($(`#razor`).is(`:checked`) == true) || ($(`#cod`).is(`:checked`) == true)) {
+          setSuccess(cod)
+        } else {
+          
+          $(`#span`).text('please select any payment option')
+          e.preventDefault()
+        }
+        // /////////////
+        
+      }
+      )
+
+
+    </script>
+
+    <script>
+      let orderData = '<%=JSON.stringify(order)%>'
+      console.log(orderData)
+      orderData = JSON.parse(orderData.replace(/&#34;/g, '"'));
+      console.log(orderData.id)
+
+      $(document).ready(()=>{
+        if(orderData){
+          x()
+        }
+      })
+
+      var options = {
+        "key": "rzp_test_bXTgxd9QntzABH", // Enter the Key ID generated from the Dashboard
+        "amount": orderData.amount * 100, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+        "currency": "INR",
+        "name": "APERTURE",
+        "description": "Test Transaction",
+        "image": "https://example.com/your_logo",
+        "order_id": '' + orderData.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+        "handler": function (response) {
+          success()
+        },
+        "prefill": {
+          "name": "Gaurav Kumar",
+          "email": "gaurav.kumar@example.com",
+          "contact": "9000090000"
+        },
+        "notes": {
+          "address": "Razorpay Corporate Office"
+        },
+        "theme": {
+          "color": "#3399cc"
+        }
+      };
+      var rzp1 = new Razorpay(options);
+      // rzp1.on('payment.failed', function (response){
+      // // alert(response.error.code);
+      // // alert(response.error.description);
+      // // alert(response.error.source);
+      // // alert(response.error.step);
+      // // alert(response.error.reason);
+      // // alert(response.error.metadata.order_id);
+      // // alert(response.error.metadata.payment_id);
+      // });
+      console.log("haaaaai");
+      
+
+
+        function x(){
+          rzp1.open();
+        e.preventDefault();
+        }
+
+
+      
+      function success() {
+        $.ajax({
+          type: "GET",
+          url: "/razorpay",
+          contentType: 'application/json',
+          success: function (datas) {
+            console.log('khjghg');
+            console.log(datas)
+
+            location.href = `/order/success?id=${datas.orderid}`
+          }
+        })
+
+      }
+    </script>
+
+    <script>
+      console.log($('#search12').val());
+      function coupon(xxx) {
+        let search
+        if (xxx) {
+          search = xxx
+        } else {
+          search = $('#search12').val()
+        }
+        console.log("check search1");
+        console.log(search);
+        console.log("check search2");
+
+        $.ajax({
+          type: "post",
+          url: '/redeem',
+          dataType: 'json',
+          contentType: 'application/json',
+          data: JSON.stringify({ search }),
+          success: ((res) => {
+            if (res.success) {
+              if (xxx) {
+                $('.close').click()
+              }
+              $('.grand').text(`₹${res.grand}`)
+              $('.applyc').text(`-₹${res.reduction}`)
+              $('#search12').val('')
+            } if (res.error) {
+              $('#error').text(res.message)
+            }
+          }),
+
+
+        })
+
+
+      }
+
+    </script>

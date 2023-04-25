@@ -1,0 +1,201 @@
+<%- include ('../userhomeLayout/header.ejs') %>
+
+    <div id="all">
+        <div id="content">
+            <div class="container">
+                <div class="row">
+
+                    <div id="checkout" class="col-lg-9">
+                        <div class="box">
+                            <form method="post" id="form2" action="/addAddress">
+                                <h1>NEW - Address</h1>
+                                <div class="nav flex-column flex-md-row nav-pills text-center"><a href="checkout1.html"
+                                        class="nav-link flex-sm-fill text-sm-center active"> <i
+                                            class="fa fa-map-marker">
+                                        </i>Address</a></div>
+                                <div class="content py-3">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="firstname">Firstname</label>
+                                                <input id="firstname" name="name" type="text" class="form-control">
+                                                <span class="text-danger error"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+
+                                        </div>
+                                    </div>
+                                    <!-- /.row-->
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="home">home/flat no</label>
+                                                <input id="home" name="home" type="text" class="form-control">
+                                                <span class="text-danger error"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="street">Street</label>
+                                                <input id="street" name="street" type="text" class="form-control">
+                                                <span class="text-danger error"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /.row-->
+                                    <div class="row">
+                                        <div class="col-md-6 col-lg-3">
+                                            <div class="form-group">
+                                                <label for="district">District</label>
+                                                <input id="district" name="district" type="text" class="form-control">
+                                                <span class="text-danger error"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-lg-3">
+                                            <div class="form-group">
+                                                <label for="zip">ZIP</label>
+                                                <input id="zip" name="zip" type="text" class="form-control">
+                                                <span class="text-danger error"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-lg-3">
+                                            <div class="form-group">
+                                                <label for="state">State</label>
+                                                <input id="state" name="state" type="text" class="form-control">
+                                                <span class="text-danger error"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-lg-3">
+                                            <div class="form-group">
+                                                <label for="country">Country</label>
+                                                <input id="country" name="country" type="text" class="form-control">
+                                                <span class="text-danger error"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="mobile">Mobile</label>
+                                                <input id="mobile" name="mobile" type="text" class="form-control">
+                                                <span class="text-danger error"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="email">Email</label>
+                                                <input id="email" name="email" type="text" class="form-control">
+                                                <span class="text-danger error"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /.row-->
+                                </div>
+                                <div class="box-footer d-flex justify-content-between"><a href="/user/addresslist"
+                                        class="btn btn-outline-secondary"><i class="fa fa-chevron-left"></i>Back
+                                    </a>
+                                    <button type="submit" class="btn btn-primary">ADD ADDRESS<i
+                                            class="fa fa-chevron-right"></i></button>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- /.box-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%- include ('../userhomeLayout/footer.ejs') %>
+
+        <script>
+
+            const form = document.getElementById('form2')
+            const name1 = document.getElementById('firstname')
+            const home1 = document.getElementById('home')
+            const street1 = document.getElementById('street')
+            const zip1 = document.getElementById('zip')
+            const district1 = document.getElementById('district')
+            const state1 = document.getElementById('state')
+            const country1 = document.getElementById('country')
+            const mobile1 = document.getElementById('mobile')
+
+            const seterror = (element, message) => {
+                const inputControll = element.parentElement;
+                const errorDisplay = inputControll.querySelector('.error')
+
+                errorDisplay.innerText = message
+                inputControll.classList.add('error')
+                inputControll.classList.remove('success')
+            }
+            const setSuccess = (element) => {
+                const inputControll = element.parentElement;
+                const errorDisplay = inputControll.querySelector('.error')
+
+                errorDisplay.innerText = ''
+                inputControll.classList.remove('success')
+                inputControll.classList.add('error')
+            }
+
+            form.addEventListener('submit', e => {
+                const ordername = name1.value.trim()
+                const orderhome = home1.value.trim()
+                const orderstreet = street1.value.trim()
+                const orderzip = zip1.value.trim()
+                const orderdistrict = district1.value.trim()
+                const orderstate = state1.value.trim()
+                const ordercountry = country1.value.trim()
+                const ordermobile = mobile1.value.trim()
+
+                if (ordername == '') {
+                    seterror(name1, 'this field is required')
+                    e.preventDefault()
+                } else {
+                    setSuccess(name1)
+                }
+                /////////////////////////
+                if (orderhome == '') {
+                    seterror(home1, 'this field is required')
+                    e.preventDefault()
+                } else {
+                    setSuccess(home1)
+                }
+                ///////////////////////////
+                if (orderstreet == '') {
+                    seterror(street1, 'this field is required')
+                    e.preventDefault()
+                } else {
+                    setSuccess(street1)
+                }
+                ////////////////////////////
+                if (orderdistrict == '') {
+                    seterror(district1, 'this field is required')
+                    e.preventDefault()
+                } else {
+                    setSuccess(district1)
+                }
+                ////////////////////////////////
+                if (orderzip == '') {
+                    seterror(zip1, 'this field is required')
+                    e.preventDefault()
+                } else {
+                    setSuccess(zip1)
+                }
+                ////////////////////////////
+                if (orderstate == '') {
+                    seterror(state1, 'this field is required')
+                    e.preventDefault()
+                } else {
+                    setSuccess(state1)
+                }
+                //////////////////////////
+                if (ordermobile == '') {
+                    seterror(mobile1, 'this field is required')
+                    e.preventDefault()
+                } else {
+                    setSuccess(mobile1)
+                }
+
+            })
+    
+
+        </script>

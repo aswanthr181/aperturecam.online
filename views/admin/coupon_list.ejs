@@ -1,0 +1,200 @@
+<%- include('../adminLayout/a_header.ejs') %>
+
+    <nav class="navbar navbar-expand-xl">
+        <div class="container h-100">
+            <a class="navbar-brand" href="index.html">
+                <h1 class="tm-site-title mb-0">Product Admin</h1>
+            </a>
+            <button class="navbar-toggler ml-auto mr-0" type="button" data-toggle="collapse"
+                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <i class="fas fa-bars tm-nav-icon"></i>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mx-auto h-100">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/home">
+                            <i class="fas fa-tachometer-alt"></i> Dashboard
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="userlist" id="navbarDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="far fa-file-alt"></i>
+                            <span> User List <i class="fas fa-angle-down"></i> </span>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">Daily Report</a>
+                            <a class="dropdown-item" href="#">Weekly Report</a>
+                            <a class="dropdown-item" href="#">Yearly Report</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="/admin/addproducts">
+                            <i class="fas fa-shopping-cart"></i> Products
+                        </a>
+                    </li>
+
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/addcategory">
+                            category
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="/admin/orderlist">
+                            <i class="fas fa-truck-fast"></i> orders
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="/admin/banner">
+                            Banner
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/admin/coupon">
+                            coupon
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link d-block" href="/admin/logout">
+                            Admin, <b>Logout</b>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <style>
+        .form-control::placeholder {
+            /* Chrome, Firefox, Opera, Safari 10.1+ */
+            color: rgba(255, 255, 255, 0.719);
+            opacity: 100;
+            /* Firefox */
+        }
+    </style>
+
+    <div class="container tm-mt-big tm-mb-big">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 tm-block-col">
+                <div class="tm-bg-primary-dark tm-block tm-block-product-categories">
+                    <div class="row">
+
+                        <div class="col-12 text-center">
+                            <h2 class="tm-block-title mb-3"> Coupon</h2>
+                        </div>
+                        <div class="col-4"><br>
+                            <a href="/admin/addcoupon"><button class="btn btn-primary btn-block text-uppercase">ADD NEW
+                                </button></a>
+                        </div>
+                    </div>
+                    <div class="tm-product-table-container">
+                        <table class="table tm-table-small tm-product-table">
+                            <thead>
+                                <tr class="text-center">
+
+                                    <th scope="col">coupon Code</th>
+                                    <th scope="col">Expiry Date</th>
+                                    <th scope="col">Min Purchase</th>
+                                    <th scope="col">Max purchase</th>
+                                    <th scope="col">discount</th>
+                                    <th scope="col">max-discount amount</th>
+
+                                    <th scope="col">Action</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+
+
+                                <% for(let i=0;i<coupon.length;i++) {%>
+                                    <tr class="text-center">
+
+                                        <td class="">
+                                            <%=coupon[i].couponId %>
+                                        </td>
+                                        <td class="">
+                                            <%=coupon[i].expiryDate %>
+                                        </td>
+                                        <td class="">₹<%=coupon[i].minAmount %>
+                                        </td>
+                                        <td class="">₹<%=coupon[i].maxAmount %>
+                                        </td>
+                                        <td class="">
+                                            <%=coupon[i].discount %>%
+                                        </td>
+                                        <td class="">₹<%=coupon[i].max_discount %>
+                                        </td>
+
+                                        <td>
+                                            <a href="/admin/editcoupon?id=<%= coupon[i]._id%>"
+                                                class="tm-product-delete-link">
+                                                <i
+                                                    class="fa-sharp fa-solid fa-pen-to-square tm-product-delete-icon"></i>
+                                            </a>
+                                            <a href="/admin/delete/coupon?id=<%= coupon[i]._id%>" id="del"
+                                                class="tm-product-delete-link">
+                                                <i class="far fa-trash-alt tm-product-delete-icon"></i>
+                                            </a>
+
+                                        </td>
+                                    </tr>
+                                    <% } %>
+
+
+
+
+
+
+                            </tbody>
+                        </table>
+                        <% if (message !=null) { %>
+                            <% if(message=="coupon addedd success" ){ %>
+                                <script>
+
+                                    swal({
+                                        title: "success!",
+                                        text: " <%= message %> ",
+                                        icon: "",
+                                        timer: 2000,
+                                        showConfirmButton: false
+                                    })
+                                </script>
+                                <% }else if(message=="coupon updated success"){ %>
+                                <script>
+                                     swal({
+                                        title: "success!",
+                                        text: " <%= message %> ",
+                                        icon: "",
+                                        timer: 2000,
+                                        showConfirmButton: false
+                                    })
+                                </script>
+                                <% }else{ %>
+                                    <script>
+                                        swal({
+                                            title: "Warning!",
+                                            text: " <%= message %> ",
+                                            icon: "warning",
+                                            timer: 9000,
+                                            showConfirmButton: true
+                                        })
+                                    </script>
+                                    <% } %>
+                                        <% } %>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <script>
+
+    </script>
+    <%- include('../adminLayout/a_footer.ejs') %>

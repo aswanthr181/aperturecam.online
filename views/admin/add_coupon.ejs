@@ -1,0 +1,305 @@
+<%- include('../adminLayout/a_header.ejs') %>
+
+    <nav class="navbar navbar-expand-xl">
+        <div class="container h-100">
+            <a class="navbar-brand" href="index.html">
+                <h1 class="tm-site-title mb-0">Product Admin</h1>
+            </a>
+            <button class="navbar-toggler ml-auto mr-0" type="button" data-toggle="collapse"
+                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <i class="fas fa-bars tm-nav-icon"></i>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mx-auto h-100">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/home">
+                            <i class="fas fa-tachometer-alt"></i> Dashboard
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="/admin/userlist">
+                          <i class="far fa-file-alt"></i> userlist
+                        </a>
+                      </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="/admin/addproducts">
+                            <i class="fas fa-shopping-cart"></i> Products
+                        </a>
+                    </li>
+
+                   
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/addcategory">
+                            category
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="/admin/orderlist">
+                            <i class="fas fa-truck-fast"></i>orders
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="/admin/banner">
+                            Banner
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/admin/coupon">
+                            coupon
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link d-block" href="/admin/logout">
+                            Admin, <b>Logout</b>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+
+
+<style>
+    .form-control::placeholder {
+        /* Chrome, Firefox, Opera, Safari 10.1+ */
+        color: rgba(255, 255, 255, 0.719);
+        opacity: 100;
+        /* Firefox */
+    }
+</style>
+
+<div class="container tm-mt-big tm-mb-big">
+    <div class="row">
+        
+
+        <div class="col-lg-6  mx-auto tm-login-col">
+            <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <h2 class="tm-block-title mb-3">Add Coupon</h2>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <form onsubmit="return validateForm()" id="form1" action="/admin/addcoupon" method="post" class="tm-login-form">
+                            
+                            <div class="form-group mt-2">
+
+                                <input style="height: 10px;" placeholder="couponId" type="text" name="cid"
+                                    class="form-control validate" id="couponId"  />
+                                    <span class="text-danger error"></span>
+                            </div>
+                            <div class="form-group mt-2">
+                                
+
+                                <input style="height: 10px;" placeholder="expiry-Date" type="date" name="date"
+                                    class="form-control validate" id="exdate"  min="<%= today%>" />
+                                    <span class="text-danger error"></span>
+                            </div>
+                            <div class="form-group mt-2">
+
+                                <input style="height: 10px;" name="minAmount" type="text"
+                                    class="form-control validate" id="minAmount" placeholder="Minimum Amount"  />
+                                    <span class="text-danger error"></span>
+                            </div>
+                            <div class="form-group mt-2">
+
+                                <input name="maxAmount" type="text" class="form-control validate "
+                                    style="height: 10px;" id="maxAmount" placeholder="Max-Amount"  />
+                                    <span class="text-danger error"></span>
+                            </div>
+
+                            <div class="form-group mt-2">
+
+                                <input style="height: 10px;" name="discount" type="text"
+                                    class="form-control validate" id="discount" placeholder=" Discount in %"  />
+                                    <span class="text-danger error"></span>
+                            </div>
+                            <div class="form-group mt-2">
+
+                                <input style="height: 10px;" name="maxdiscount" type="text"
+                                    class="form-control validate" id="maxdiscount" placeholder=" max Discount amount"  />
+                                    <span class="text-danger error"></span>
+                            </div>
+                            <div class="form-group mt-2">
+
+                                <input style="height: 10px;" name="number" type="text"
+                                    class="form-control validate" id="number" placeholder="number of coupons" />
+                                    <span class="text-danger error"></span>
+                            </div>
+                            <div class="form-group mt-3">
+                                <button type="submit" class="btn btn-primary btn-block text-uppercase">
+                                    Submit
+                                </button>
+                            </div>
+                        </form>
+                        <% if (message !=null) { %>
+                            <script>
+                                swal({
+                                    title: "Warning!",
+                                    text: " <%= message %> ",
+                                    icon: "warning",
+                                    timer: 2000,
+                                    showConfirmButton: false
+                                })
+                            </script>
+                            <% } %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<%- include('../adminLayout/a_footer.ejs') %>
+
+<script>
+
+    const form = document.getElementById('form1')
+    const couponId = document.getElementById('couponId')
+    const exdate = document.getElementById('exdate')
+    const minAmount = document.getElementById('minAmount')
+    const maxAmount = document.getElementById('maxAmount')
+    const discount = document.getElementById('discount')
+    const maxdiscount = document.getElementById('maxdiscount')
+    const number = document.getElementById('number')
+
+    const seterror = (element, message) => {
+      const inputControll = element.parentElement;
+      const errorDisplay = inputControll.querySelector('.error')
+
+      errorDisplay.innerText = message
+      inputControll.classList.add('error')
+      inputControll.classList.remove('success')
+    }
+    const setSuccess = (element) => {
+      const inputControll = element.parentElement;
+      const errorDisplay = inputControll.querySelector('.error')
+
+      errorDisplay.innerText = ''
+      inputControll.classList.remove('success')
+      inputControll.classList.add('error')
+    }
+
+    form.addEventListener('submit', e => {
+      const ccouponId = couponId.value.trim()
+      const cexdate = exdate.value.trim()
+      const cminAmount = minAmount.value.trim()
+      const cmaxAmount = maxAmount.value.trim()
+      const cmaxdiscount = maxdiscount.value.trim()
+      const cdiscount = discount.value.trim()
+      const cnumber= number.value.trim()
+
+      if (ccouponId == '') {
+        seterror(couponId, 'this field is required')
+        e.preventDefault()
+      } else {
+        setSuccess(couponId)
+      }
+      console.log(ccouponId);
+      /////////////
+      if (cexdate == '') {
+        seterror(exdate, 'this field is required')
+        e.preventDefault()
+      } else {
+        setSuccess(couponId)
+      }
+      ///////////
+      if (cminAmount == '') {
+        seterror(minAmount, 'this field is required')
+        e.preventDefault()
+      } else {
+        setSuccess(minAmount)
+      }
+      ////////////
+     
+      if (cmaxAmount == '') {
+        seterror(maxAmount, 'this field is required')
+        e.preventDefault()
+      } else {
+        setSuccess(maxAmount)
+      }
+      ////////////
+     
+      if (cmaxdiscount == '') {
+        seterror(maxdiscount, 'this field is required')
+        e.preventDefault()
+      } else {
+        setSuccess(maxdiscount)
+      }
+      /////////////
+      if (cdiscount == '') {
+        seterror(discount, 'this field is required')
+        e.preventDefault()
+      } else {
+        setSuccess(discount)
+      }  
+      /////////
+      if (cnumber == '') {
+        seterror(number, 'this field is required')
+        e.preventDefault()
+      } else {
+        setSuccess(number)
+      } 
+       
+       
+       
+    
+    })
+</script>
+<script type="text/javascript">
+    function validateForm(){
+      
+
+      const minAmount = document.getElementById('minAmount').value
+    const maxAmount = document.getElementById('maxAmount').value
+    const discount = document.getElementById('discount').value
+    const maxdiscount = document.getElementById('maxdiscount').value
+
+      
+
+      if(minAmount<0 ){
+        swal({
+          icon:'error',
+          title:'oops..',
+          text:' must be a valid number',
+
+        });
+        return false;
+      } else if(maxAmount<0){
+        swal({
+          icon:'error',
+          title:'oops..',
+          text:' must be a valid value',
+
+        });
+        return false;
+      }else if(discount<0){
+        swal({
+          icon:'error',
+          title:'oops..',
+          text:' must be a valid value',
+
+        });
+        return false;
+      }else if(maxdiscount<0 || isNaN(maxdiscount)){
+        swal({
+          icon:'error',
+          title:'oops..',
+          text:' must be a valid value',
+
+        });
+        return false;
+      }
+      return true;
+    }
+
+  </script>
+    

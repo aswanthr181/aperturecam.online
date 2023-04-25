@@ -1,0 +1,156 @@
+<%- include ('../userhomeLayout/header.ejs') %>
+
+    <section class="p-1" style="background-color: rgb(214, 216, 216);">
+        <section class="container-xl  ">
+            <div class="m-0 row d-flex justify-content-center w-100">
+                <div class="col-12 p-0">
+                    <div class="my-3 shadow bg-white py-3 ps-3, width:100%  " style=" border-radius: 5px;">
+                        <div class="ps-2">
+                            <h5><b>Delivery Address</b></h5>
+                            <p class="my-2">
+                                <%= itemData.address.name %>
+                            </p>
+                            <address class="my-2">
+                                <%= itemData.address.home %>, <%= itemData.address.street %>, <%= itemData.address.district %>, <%= itemData.address.zip %>
+                            </address>
+                            <h5><b>phone numbers</b></h5>
+                            <p>
+                                <%= itemData.address.mobile %>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <% for(let i=0;i<itemData.order.length;i++){ %>
+
+
+                <div class="py-3 ps-3 mb-2 shadow bg-white w-100  d-flex" style=" border-radius: 5px;">
+                    <div class="row w-100 ">
+                        <div class="col-12 col-md-5 d-flex">
+                            <div>
+                                <img class="pe-3" style="height:120px;"
+                                    src="/product-images/<%= itemData.order[i].product.images[0] %>" alt="">
+                            </div>
+                            <div>
+                                <h6>
+                                    <%= itemData.order[i].product.p_name %> (Item<%=itemData.order[i].quantity%>)
+                                </h6>
+
+                                <h5><span class="mx-2">₹<%= itemData.order[i].price %></span><br><small
+                                        class="mx-2 text-danger text-decoration-line-through">
+                                    </small><span class="text-success mx-2">18% off</span></h5>
+
+                            </div>
+                            <!--  -->
+
+                        </div>
+
+                        <div class="col-12 col-md-7 my-2 d-flex flex-column justify-content-evenly fs-16 ">
+                            <div class="d-flex align-items-center justify-content-evenly ">
+                                <small class="text-nowrap">ORDER SUCCESS<br>
+                                    <%= new Date(itemData.order[i].order_date).toLocaleDateString()%>
+                                </small>
+
+                                <span class="bg-success mx-2" style="height: 3px; width: 80%;"></span>
+                                <% if(itemData.order[i].status=='pending' ){ %>
+                                    <small class="text-nowrap">DELIVERY DATE
+                                        <br>
+                                        <%= new Date(itemData.order[i].arriving_date).toLocaleDateString()%>
+                                    </small>
+                                    <%}else{%>
+                                        <% if(itemData.order[i].status=='cancelled' ){ %>
+                                               <small class="text-nowrap text-danger">CANCELLED DATE</small><br>
+                                            
+                                               <%= new Date(itemData.order[i].cancel_date).toLocaleDateString()%>
+                                        <% }else if(itemData.order[i].status!='delivered'){ %>
+                                                 <small class="text-nowrap">DELIVERY DATE</small><br>
+                                                    
+                                                 <%= new Date(itemData.order[i].arriving_date).toLocaleDateString()%>
+                                         <% } %>
+                                 <% } %>
+                            </div>
+                            <div class="d-flex justify-content-between ">
+                                <% if(itemData.order[i].status=='pending' ){ %>
+                                    <span><b>status: </b><span class="text-warning">pending</span></span>
+                                    <%}else if(itemData.order[i].status=='cancelled' ){%>
+                                        <span><b class="text-dark">status: </b><span class="text-danger">canceled</span>
+                                        </span>
+                                        <%}else if(itemData.order[i].status=='shipped' ){%>
+                                            <span><b class="text-dark">status: </b><span class="text-success">shipped</span>
+                                            </span>
+                                            <%}else if(itemData.order[i].status=='delivered' && itemData.order[i].return==null){%>
+                                                <span><b class="text-dark">status: </b><span class="text-success">DELIVERED</span>
+                                                </span>
+                                                <%}else if(itemData.order[i].return=="requested"){%>
+                                                    <span><b class="text-dark">status: </b><span class="text-success">DELIVERED</span>
+                                                    </span><br>
+                                                    <span><b class="text-dark">Return: </b><span class="text-danger">Requested</span>
+                                                  </span>
+                                                  <%}else if(itemData.order[i].return=="accepted"){%>
+                                                    <span><b class="text-dark">status: </b><span class="text-success">DELIVERED</span>
+                                                    </span><br>
+                                                    <span><b class="text-dark">Return: </b><span class="text-danger">Accepted,</span><p>Agent will contact you soon</p>
+                                                  </span>
+                                                
+
+                                    <% } %>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-12  mb-5 p-0">
+                    <div style="height: 50px; margin-top: 100px; "
+                        class="bg-white d-flex align-items-center justify-content-between px-3  mt-3">
+                        <% if(itemData.order[i].status=='cancelled' ){ %>
+                            <h5 class="me-3"><b>TOTAL PRICE:</b>₹<%= itemData.order[i].price %>
+                            </h5>
+
+                            <% }else if(itemData.order[i].status=='shipped'){ %>
+                                <h5 class="me-3"><b>ITEM SHIPPED ON: </b><%= itemData.order[i].cancel_date%>
+                                </h5>
+                                <a href="/orderDelivered?receiveIndex=<%= itemData.order[i]._id%>&id=<%= itemData._id %>" class="text-warning">receive</a>
+
+                                <% }else if(itemData.order[i].status=='delivered' && itemData.order[i].return==null){ %>
+                                    <h5 class="me-3"><b>ITEM SHIPPED ON: </b><%= itemData.order[i].delivered_date%>
+                                    </h5><br>
+                                    <h5 class="me-3"><b>ITEM DELIVERED ON: </b><%= itemData.order[i].delivered_date%>
+                                    </h5>
+                                    <a href="/returnItem?returnIndex=<%= itemData.order[i]._id%>&id=<%= itemData._id %>" class="text-warning"><button>RETURN</button></a>
+                                    <% }else if(itemData.order[i].return=="requested"){ %>
+                                        <h5 class="me-3"><b>ITEM SHIPPED ON: </b><%= itemData.order[i].delivered_date%>
+                                        </h5><br>
+                                        <h5 class="me-3"><b>ITEM DELIVERED ON: </b><%= itemData.order[i].delivered_date%>
+                                        </h5>
+                                        <% }else if(itemData.order[i].return=="accepted"){ %>
+                                            <h5 class="me-3"><b>ITEM SHIPPED ON: </b><%= itemData.order[i].delivered_date%>
+                                            </h5><br>
+                                            <h5 class="me-3"><b>ITEM DELIVERED ON: </b><%= itemData.order[i].delivered_date%>
+                                            </h5>
+                                        
+
+                    <% }else{ %>
+                        <h5><a href="/orderCancel?cancelIndex=<%= itemData.order[i]._id%>&id=<%= itemData._id %>" class="text-danger">CANCEL
+                                ORDER</a></h5>
+                            
+                        <% } %>
+                    </div>
+                </div>
+                
+
+                
+
+                <%} %>
+                <div class="col-12  my-3 p-0">
+                    <h5 class="me-3"><b>TOTAL PRICE:</b>₹<%= itemData.grandTotal %>
+                    </h5>
+                </div>
+
+
+
+
+                    <!-- </div> -->
+        </section>
+    </section>
+
+    <%- include ('../userhomeLayout/footer.ejs') %>

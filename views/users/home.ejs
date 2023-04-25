@@ -1,0 +1,68 @@
+
+
+<%- include ('../userhomeLayout/header.ejs') %>
+    <div id="all">
+        <div id="content">
+            <div class="container">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div id="main-slider" class="owl-carousel owl-theme">
+                        <% for(let i=0;i<banner[banner.length-1].image.length;i++){%>
+                      <div class="item"><img src="/product-images/<%= banner[banner.length-1].image[i] %>" alt="" class="img-fluid"></div>
+                      
+                      <%}%>
+                    </div>
+                    <!-- /#main-slider-->
+                  </div>
+                </div>
+              </div>
+            <div id="hot">
+                <div class="box py-4">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h2 class="mb-0">Hot this week<p></p></h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="product-slider owl-carousel owl-theme">
+                        
+                        
+                        
+                        <% for(let i=0; i<p_details.length;i++){ %>
+                        <div class="item"  >
+                            <div class="product">
+                                <div class="flip-container">
+                                    <div class="flipper">
+                                        <div class="front"><a href="detail.html"><img src="/product-images/<%= p_details[i].images[0] %>" alt=""
+                                                    class="img-fluid"></a></div>
+                                        <div class="back"><a href="detail.html"><img src="/product-images/<%= p_details[i].images[0] %>" alt=""
+                                                    class="img-fluid"></a></div>
+                                    </div>
+                                </div>
+                                <a href="detail.html" class="invisible"><img src="/product-images/<%= p_details[i].images[0] %>" alt=""
+                                        class="img-fluid"></a>
+                                       
+                                <div class="text">
+                                    <h4><a  href="detail.html"><%= p_details[i].p_name %></a></h4>
+                                    <p class="price">
+                                        <del></del>$<%= p_details[i].p_price %>
+                                    </p>
+                                </div>
+                                <!-- /.text-->
+                            </div>
+                            <!-- /.product-->
+                        </div>
+                        <% } %>
+                    </div>
+                </div>
+                <div>
+                    <!--  -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <%- include ('../userhomeLayout/footer.ejs') %>

@@ -1,0 +1,128 @@
+<%- include ('../userhomeLayout/header.ejs') %>
+
+  <div id="all">
+    <div id="content">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <!-- breadcrumb-->
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li aria-current="page" class="breadcrumb-item active">My wishlist</li>
+              </ol>
+            </nav>
+          </div>
+          <div class="col-lg-3">
+            <!--
+            *** CUSTOMER MENU ***
+            _________________________________________________________
+            -->
+            <div class="card sidebar-menu">
+              <div class="card-header">
+                <h3 class="h4 card-title">Customer section</h3>
+              </div>
+              <div class="card-body">
+                <ul class="nav nav-pills flex-column"><a href="customer-account.html" class="nav-link"><i
+                      class="fa fa-user"></i> My account</a><a href="customer-wishlist.html" class="nav-link active"><i
+                      class="fa fa-heart"></i> My wishlist</a><a href="customer-orders.html" class="nav-link"><i
+                      class="fa fa-list"></i> My orders</a><a href="index.html" class="nav-link"><i
+                      class="fa fa-sign-out"></i> Logout</a></ul>
+              </div>
+            </div>
+            <!-- /.col-lg-3-->
+            <!-- *** CUSTOMER MENU END ***-->
+          </div>
+          <% if(user.wishlist.length>0){ %>
+          <div id="wishlist" class="col-lg-9">
+            <ul class="breadcrumb">
+              <li><a href="#">Home</a></li>
+              <li>wishlist</li>
+            </ul>
+            <div class="box">
+              <h1>My wishlist</h1>
+              <p class="lead">Explore yourwishlist.</p>
+            </div>
+            <div class="row products">
+              <% for(let i=0;i<user.wishlist.length;i++){%>
+                <div class="col-lg-3 col-md-4">
+                  <div class="product">
+                    <div class="flip-container">
+                      <div class="flipper">
+                        <div class="front" ><a href="detail.html" ><img
+                              src="/product-images/<%= user.wishlist[i].product.images[0] %>" alt=""
+                              class="img-fluid"></a></div>
+                       
+                      </div>
+
+
+                      
+
+
+                    </div><a href="detail.html" class="invisible"><img
+                        src="/product-images/<%= user.wishlist[i].product.images[0] %>" alt="" class="img-fluid"></a>
+                    <div class="text">
+                      <h3><a href="detail.html">
+                          <%= user.wishlist[i].product.p_name %>
+                        </a></h3>
+                      <p class="price">
+                        <del></del>$<%= user.wishlist[i].product.p_price %>
+                      </p>
+                      <p class="buttons"><a href="/product/details?id=<%= user.wishlist[i].product._id%>" class="btn btn-outline-secondary">View detail</a> </p>
+
+                      <div class="d-flex">
+                        <form action="/product/cart?id=<%= user.wishlist[i].product._id%>" style="display: contents"
+                          method="post">
+                          <button type="submit" class="btn btn-primary"><i class="fa fa-shopping-cart"></i>to
+                            cart</button>
+  
+                        </form>
+  
+                        <form action="/remove/wishlist?id=<%= user.wishlist[i]._id%>" style="display: contents"
+                          method="post">
+                          <button type="submit" class="btn btn-primary" style="margin-left: auto;"><i class="bi bi-x-circle-fill">x</i></button>
+  
+                        </form>
+                      </div>
+
+
+
+                      <!-- <a
+                          href="basket.html" class="btn btn-primary"><i class="fa fa-shopping-cart"></i>Add to cart</a> -->
+                      
+                    </div>
+                    <!-- /.text-->
+                  </div>
+                  <!-- /.product            -->
+                </div>
+                <% } %>
+            </div>
+          </div>
+          <% }else{ %>
+            <div id="wishlist" class="col-lg-9">
+            <div  class="" style="text-align: center;" >
+              <h3 style="text-align: center;">YOUR wishlist IS EMPTY</h3>
+              <div class="card-body">
+                <a href="/shop" class="nav-link"> shop</a>
+              </div>
+          </div>
+        </div>
+
+            <% } %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% if( alert != null){ %>
+    <script>
+        swal.fire({
+               title: "",
+                text: "<%= alert%>",
+                 imageUrl: 'thumbs-up.jpg'
+             });
+        
+    </script>
+    <% }%>
+
+  
+  <%- include ('../userhomeLayout/footer.ejs') %>

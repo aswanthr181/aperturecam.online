@@ -1,0 +1,282 @@
+<%- include('../adminLayout/a_header.ejs') %>
+
+  <nav class="navbar navbar-expand-xl">
+    <div class="container h-100">
+      <a class="navbar-brand" href="index.html">
+        <h1 class="tm-site-title mb-0">Product Admin</h1>
+      </a>
+      <button class="navbar-toggler ml-auto mr-0" type="button" data-toggle="collapse"
+        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+        aria-label="Toggle navigation">
+        <i class="fas fa-bars tm-nav-icon"></i>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mx-auto h-100">
+          <li class="nav-item">
+            <a class="nav-link" href="/admin/home">
+              <i class="fas fa-tachometer-alt"></i> Dashboard
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="/admin/userlist">
+              <i class="far fa-file-alt"></i> userlist
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="/admin/addproducts">
+              <i class="fas fa-shopping-cart"></i> Products
+            </a>
+          </li>
+
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/admin/addcategory">
+              category
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="/admin/orderlist">
+              <i class="fas fa-truck-fast"></i>orders
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link " href="/admin/banner">
+                Banner
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link " href="/admin/coupon">
+                coupon
+            </a>
+        </li>
+        </ul>
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link d-block" href="/admin/logout">
+              Admin, <b>Logout</b>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="container tm-mt-big tm-mb-big">
+    <div class="row">
+      <div class="col-xl-9 col-lg-10 col-md-12 col-sm-12 mx-auto">
+        <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
+          <div class="row">
+            <div class="col-12">
+
+              <h2 class="tm-block-title d-inline-block">Add Product</h2>
+            </div>
+          </div>
+          <div class="row tm-edit-product-row">
+            <div class="col-xl-6 col-lg-6 col-md-12">
+              <form onsubmit="return validateForm()" action="/admin/addproducts" id="form1" class="tm-edit-product-form"
+                method="post" enctype="multipart/form-data">
+                <div class="form-group mb-3">
+                  <label for="name">Product Name
+                  </label>
+                  <input id="name" name="p_name" type="text" class="form-control validate" />
+                  <span class="text-danger error"></span>
+                </div>
+                <div class="form-group mb-3">
+                  <label for="name">Brand
+                  </label>
+                  <input id="brand" name="p_brand" type="text" class="form-control validate" />
+                  <span class="text-danger error"></span>
+                </div>
+                <div class="form-group mb-3">
+                  <label for="description">Description</label>
+                  <textarea name="p_description" class="form-control validate" rows="3"></textarea>
+                </div>
+                <div class="form-group mb-3">
+                  <label for="name">Price
+                  </label>
+                  <input id="price" name="p_price" type="text" class="form-control validate" />
+                  <span class="text-danger error"></span>
+                </div>
+                <div class="row">
+
+                  <div class="form-group mb-3 col-xs-12 col-sm-6">
+                    <label for="stock">Quantity Adding
+                    </label>
+                    <input id="stock" name="p_stock" type="text" class="form-control validate" />
+                    <span class="text-danger error"></span>
+                  </div>
+                </div>
+
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-12 mx-auto mb-4">
+              <div class="tm-product-img-dummy mx-auto">
+                <i class="fas fa-cloud-upload-alt tm-upload-icon"
+                  onclick="document.getElementById('fileInput').click();"></i>
+              </div>
+              <div class="custom-file mt-3 mb-3">
+                <input id="fileInput" type="file" onchange="viewImage()" name="images" style="display:none;" multiple />
+                <input type="button" class="btn btn-primary btn-block mx-auto" value="UPLOAD PRODUCT IMAGE"
+                  onclick="document.getElementById('fileInput').click();" />
+              </div>
+              <div class="form-group mb-3">
+                <label for="category">Category</label>
+                <!-- <input type="text" id="category" name="category" class="form-control validate"> -->
+                <select class="custom-select tm-select-accounts" name="category" id="category">
+                  <option value="">select category</option>
+                  <% if(c_details.length>0){%>
+                    <% for(let i=0;i<c_details.length;i++){ %>
+                      <option value="<%= c_details[i].category %>">
+                        <%=c_details[i].category %>
+                      </option>
+
+
+                      <%}%>
+                        <%}%>
+                </select>
+                <span class="text-danger error"></span>
+
+
+              </div>
+            </div>
+            <div class="col-12">
+              <button type="submit" class="btn btn-primary btn-block text-uppercase">Add Product Now</button>
+            </div>
+            </form>
+            <div class="col-12"><br>
+              <a href="/admin/productlist"><button class="btn btn-primary btn-block text-uppercase">show
+                  product</button></a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    function viewImage(event) {
+      document.getElementById('imageView').src = URL.createObjectURL(event.target.files[0])
+    }
+  </script>
+
+  <%- include('../adminLayout/a_footer.ejs') %>
+
+    <script>
+
+      const form = document.getElementById('form1')
+      const name1 = document.getElementById('name')
+      const brand1 = document.getElementById('brand')
+      const price1 = document.getElementById('price')
+      const stock1 = document.getElementById('stock')
+      const category1 = document.getElementById('category')
+
+      const seterror = (element, message) => {
+        const inputControll = element.parentElement;
+        const errorDisplay = inputControll.querySelector('.error')
+
+        errorDisplay.innerText = message
+        inputControll.classList.add('error')
+        inputControll.classList.remove('success')
+      }
+      const setSuccess = (element) => {
+        const inputControll = element.parentElement;
+        const errorDisplay = inputControll.querySelector('.error')
+
+        errorDisplay.innerText = ''
+        inputControll.classList.remove('success')
+        inputControll.classList.add('error')
+      }
+
+      form.addEventListener('submit', e => {
+        const productname = name1.value.trim()
+        const productbrand = brand1.value.trim()
+        const productprice = price1.value.trim()
+        const productstock = stock1.value.trim()
+        const productcategory = category1.value.trim()
+
+        if (productname == '') {
+          seterror(name1, 'this field is required')
+          e.preventDefault()
+        } else {
+          setSuccess(name1)
+        }
+        //////////////////////
+        if (productbrand == '') {
+          seterror(brand1, 'this field is required')
+          e.preventDefault()
+        } else {
+          setSuccess(brand1)
+        }
+        //////////////////////
+        if (productprice == '') {
+          seterror(price1, 'this field is required')
+          e.preventDefault()
+        } else if (productprice <= 0) {
+          seterror(price1, 'invalid input')
+          e.preventDefault()
+        } else if (isNaN(productprice)) {
+          seterror(price1, 'must be a number')
+          e.preventDefault()
+        } else {
+          setSuccess(price1)
+        }
+        ///////////////////////
+        if (productstock == '') {
+          seterror(stock1, 'this field is required')
+          e.preventDefault()
+        } else if (productstock <= 0) {
+          seterror(stock1, 'invalid input')
+          e.preventDefault()
+        } else if (isNaN(productstock)) {
+          seterror(stock1, 'must be a number')
+          e.preventDefault()
+        } else {
+          setSuccess(stock1)
+        }
+        ////////////////////////
+        if (productcategory == '') {
+          seterror(category1, 'this field is required')
+          e.preventDefault()
+        } else {
+          setSuccess(category1)
+        }
+
+      })
+
+
+
+
+
+    </script>
+    <script type="text/javascript">
+      function validateForm() {
+
+        function validateImage() {
+          const fileInput = document.getElementById('fileInput');
+          const files = fileInput.files;
+
+          if (files.length === 0) {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Please select at least one image to upload',
+            });
+            return false;
+          }
+
+          return true;
+        }
+
+        const submitBtn = document.querySelector('form button[type="submit"]');
+
+        submitBtn.addEventListener('click', (event) => {
+          if (!validateImage()) {
+            event.preventDefault();
+          }
+        });
+
+
+        // If everything is valid, return true to submit the form
+        return true;
+      }
+    </script>

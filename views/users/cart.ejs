@@ -1,0 +1,287 @@
+<%- include ('../userhomeLayout/header.ejs') %>
+
+    <div id="all">
+        <div id="content">
+            <div class="container">
+                <% if(userCart!=null){%>
+                    <div class="row">
+
+                        <div class="col-lg-12">
+                            <!-- breadcrumb-->
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                    <li aria-current="page" class="breadcrumb-item active">Shopping cart</li>
+                                </ol>
+                            </nav>
+                        </div>
+                        <div id="basket" class="col-lg-9">
+
+                            <div class="box">
+                                <form method="post" action="/checkout/address?id=<%=userCart._id %>&cart=true">
+                                    <h1>Shopping cart</h1>
+                                    <p class="text-muted">You currently have <%= userCart.item.length %> item(s) in your
+                                            cart.</p>
+                                    <div class="table-responsive">
+
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th colspan="2">Product</th>
+                                                    <th>Quantity</th>
+                                                    <th>Unit price</th>
+                                                    <th>Discount</th>
+                                                    <th colspan="2">Total</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <!-- userCart.item.length -->
+                                                <% for(let i=0;i<userCart.item.length;i++){ %>
+                                                    <tr id="<%=userCart.item[i]._id%>">
+                                                        <td><a href="#"><img
+                                                                    src="/product-images/<%= userCart.item[i].product.images[0] %> "
+                                                                    alt=""></a></td>
+                                                        <td><a href="#">
+                                                                <%= userCart.item[i].product.p_name %>
+                                                            </a></td>
+                                                        <td class="d-flex " style="vertical-align: middle;">
+
+                                                            <button type="button" style="height: 26px;
+                                                            margin-right: 8px;
+                                                            margin-top: 5px;" onclick="minus('<%=userCart.item[i]._id %>')">
+                                                                <p style="font-size: 16px;"
+                                                                    >-</p>
+                                                                </button>
+                                                            <input id="<%= userCart.item[i]._id %>quantity" type=""
+                                                                value="<%= userCart.item[i].quantity %>"
+                                                                class="form-control">
+                                                                <button type="button" style="height: 26px; margin-left: 8px;
+                                                                margin-top: 5px;" onclick="plus('<%=userCart.item[i]._id %>')">
+                                                                <p style="font-size: 16px;"
+                                                                    >+</p>
+                                                            </button>
+
+
+
+                                                        </td>
+                                                        <td>₹<%= userCart.item[i].price %>
+                                                        </td>
+                                                        <td>₹0.00</td>
+                                                        <td id="<%= userCart.item[i]._id %>total">₹<%=
+                                                                userCart.item[i].total %>
+                                                        </td>
+                                                        <td>
+                                                            <p onclick="remove('<%=userCart.item[i]._id%>')"><i
+                                                                    class="fa fa-trash-o"></i></p>
+                                                        </td>
+
+                                                    </tr>
+
+                                                    <% } %>
+
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <th colspan="5">Total</th>
+                                                    <th id="grandTotal" colspan="2">₹<%= userCart.grandTotalPrice %>
+                                                    </th>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+
+                                    </div>
+                                    <!-- /.table-responsive-->
+                                    <div class="box-footer d-flex justify-content-between flex-column flex-lg-row">
+                                        <div class="left"><a href="/shop" class="btn btn-outline-secondary"><i
+                                                    class="fa fa-chevron-left"></i> Continue shopping</a></div>
+                                        <div class="right">
+                                            <button class="btn btn-outline-secondary"><i class="fa fa-refresh"></i>
+                                                Update
+                                                cart</button>
+                                            <button type="submit" class="btn btn-primary">Proceed to checkout <i
+                                                    class="fa fa-chevron-right"></i></button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                        </div>
+
+                        <div class="col-lg-3">
+                            
+                            <div id="order-summary" class="box">
+                                <div class="box-header">
+                                    <h3 class="mb-0">Order summary</h3>
+                                </div>
+                                <p class="text-muted">Shipping and additional costs are calculated based on the values
+                                    you
+                                    have entered.</p>
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <tbody>
+                                            <tr>
+                                                <td>Order subtotal</td>
+                                                <th id="grandTotal">₹<%= userCart.grandTotalPrice %>
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                <td>Shipping and handling</td>
+                                                <th>₹0.00</th>
+                                            </tr>
+                                            <tr>
+                                                <td>Tax</td>
+                                                <th>₹0.00</th>
+                                            </tr>
+                                            <tr class="total">
+                                                <td>Total</td>
+                                                <th id="grandTotal">₹<%= userCart.grandTotalPrice %>
+                                                    
+                                                    
+                                                </th>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            
+                        </div>
+
+                    </div>
+                    <div class="row" style="display: none ;">
+                        <h3>YOUR CART IS EMPTY</h3>
+                    </div>
+                    <% } else{ %>
+                        <div  class="" style="text-align: center;" >
+                            <h3 style="text-align: center;">YOUR CART IS EMPTY</h3>
+                            <a href="/shop"><button>shop</button></a>
+                        </div>
+                        <% } %>
+            </div>
+        </div>
+    </div>
+
+    <% if( alert != null){ %>
+        <script>
+            swal.fire({
+                   title: "",
+                    text: "<%= alert%>",
+                     imageUrl: 'thumbs-up.jpg'
+                 });
+            
+        </script>
+        <% }%>
+    
+    
+
+    <%- include ('../userhomeLayout/footer.ejs') %>
+    
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                    </div>
+                    <div class="modal-body" id="modal-body">
+
+                    </div>
+                    <div class="modal-footer">
+                        <h4> </h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            // Increment function
+            const plus = function (id) {
+                console.log('sjxhsu');
+                $.ajax({
+
+                    url: `/cart/inc?id=${id}`,
+                    type: "post",
+                    dataType: 'json',
+                    contentType: 'application/json',
+
+                    success: function (data) {
+                        console.log(data.y);
+                        if (data.id == id) {
+                            $(`#${id}total`).text(`₹${data.total}`)
+
+                            const grandTotalCells = document.querySelectorAll('#grandTotal');
+                            grandTotalCells.forEach(cell => {
+                                cell.textContent = `₹${data.y}`; // Replace userCart.grandTotalPrice with the correct value
+                            });
+                            
+
+                            $(`#${id}quantity`).val(data.newQuantity)
+
+                        }
+                        console.log(data);
+                    },
+
+                });
+            }
+            // Decrement function
+            const minus = function (id) {
+                console.log('hftvftfv')
+                $.ajax({
+
+                    url: `/cart/dec?id=${id}`,
+                    type: "post",
+                    dataType: 'json',
+                    contentType: 'application/json',
+
+                    success: function (data) {
+                        console.log("minus check");
+                        console.log(data.total);
+                        console.log(data.y);
+                        console.log(data.newQuantity);
+                        console.log('UDdgsdkgsdh');
+                        if (data.id == id) {
+                            const grandTotalCells = document.querySelectorAll('#grandTotal');
+                            grandTotalCells.forEach(cell => {
+                                cell.textContent = `₹${data.y}`; // Replace userCart.grandTotalPrice with the correct value
+                            });
+                            $(`#${id}total`).text(`₹${data.total}`)
+                            // $(`#grandTotal`).text()
+                            $(`#${id}quantity`).val(data.newQuantity)
+
+                        }
+                        console.log(datas);
+                    },
+
+                });
+            }
+
+
+            // remove
+
+            function remove(productId) {
+
+                $.ajax({
+                    type: "GET",
+                    url: `/cart/delete?id=${productId}`,
+                    success: function (response) {
+                        console.log(response.y);
+                        const divToRemove = document.getElementById(productId);
+                        divToRemove.style.display = 'none';
+                        const modalBody = document.querySelector('#modal-body');
+                        modalBody.textContent = response.message;
+                        $('#exampleModalLong').modal('show');
+
+                        setTimeout(function () {
+                            $('#exampleModalLong').modal('hide');
+                        }, 5000);
+
+                        const grandTotalCells = document.querySelectorAll('#grandTotal');
+                            grandTotalCells.forEach(cell => {
+                                cell.textContent = `₹${response.total}`; // Replace userCart.grandTotalPrice with the correct value
+                            });
+                        
+
+                    }
+                });
+            }
+        </script>

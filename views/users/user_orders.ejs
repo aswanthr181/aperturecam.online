@@ -1,0 +1,121 @@
+<%- include ('../userhomeLayout/header.ejs') %>
+
+    <style>
+        .list li {
+            list-style: none;
+            padding-left: 10px;
+        }
+    </style>
+    <div class="col-12">
+        <div class="row">
+            <div class="col-12 col-md-2 py-2">
+                <div class="mx-2  shadow ">
+                    <ul class="list">
+                        <li class="pt-3">
+                            <h5><b>FILTER</b></h5>
+                        </li>
+                        <li class="py-2">
+                            <h6><b>ORDER STATUS</b></h6>
+                        </li>
+                        <div class="slidenav">
+                            <li>
+                                <input type="checkbox" name="" id="">
+                                <label for="">ALL</label>
+                            </li>
+                            <li>
+                                <input type="checkbox" name="" id="">
+                                <label for="">PENDING</label>
+                            </li>
+                            <li>
+                                <input type="checkbox" name="" id="">
+                                <label for="">ON THE WAY</label>
+                            </li>
+                            <li>
+                                <input type="checkbox" name="" id="">
+                                <label for="">DELIVERED</label>
+                            </li>
+                            <li>
+                                <input type="checkbox" name="" id="">
+                                <label for="">CANCELLED</label>
+                            </li>
+                            <li>
+                                <input type="checkbox" name="" id="">
+                                <label for="">RETURNED</label>
+                            </li>
+
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-10">
+                <% orderDetails.forEach(element=> {%>
+
+
+
+                    <section class=" my-2 shadow bg-white" style=" border-radius: 5px; border: 1px solid black;">
+
+
+                        <% for(let i=0;i<element.order.length;i++){ %>
+                            <a style="color:black ;" href="/orderview/seperate?id=<%=element._id %>">
+
+                                <div class="py-2 ps-3   w-100  d-flex">
+
+                                    <div class="row w-100 ">
+                                        <div class="col-12 col-md-5 d-flex">
+                                            <div>
+                                                <img class="pe-3" style="height:120px;" src="/product-images/<%= element.order[i].product.images[0] %>" alt="product image">
+
+                                            </div>
+                                            <div>
+                                                <h6 class="text-wrap">
+                                                    <%= element.order[i].product.p_name%>
+                                                </h6>
+
+                                                <h5><span class="mx-2">₹<%= element.order[i].price%></span></h5><br><span
+                                                    class="text-success mx-2">18% off</span>
+
+
+                                            </div>
+                                            <!--  -->
+
+                                        </div>
+
+                                        <div
+                                            class="col-12 col-md-7 my-2 d-flex flex-column justify-content-evenly fs-16">
+                                            <div class="d-flex align-items-center justify-content-evenly ">
+                                                <small style="font-size: medium;" class="text-nowrap">ORDER SUCCESS<br>
+                                                    <%= new Date(element.order[i].order_date).toLocaleDateString()%></small>
+
+                                                <span class="bg-success mx-2" style="height: 3px; width: 80%;"></span>
+
+
+
+                                                <small style="font-size: medium;" class="text-nowrap">DELIVERY DATE
+                                                    <br><%= new Date(element.order[i].arriving_date).toLocaleDateString()%>
+                                                </small>
+                                            </div>
+                                            <div class="d-flex justify-content-between ">
+
+                                                <span><b>status: </b><span class="text-warning"><%= element.order[i].status%></span></span>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </a>
+
+                            <% }; %>
+                    </section>
+
+
+                    <% }); %>
+
+
+            </div>
+
+        </div>
+    </div>
+
+    <%- include ('../userhomeLayout/footer.ejs') %>

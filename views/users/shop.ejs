@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>APERTURE</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="all,follow">
+
+
+  <!-- Bootstrap CSS-->
+  <link rel="stylesheet" href="/User_home/vendor/bootstrap/css/bootstrap.min.css">
+  <!-- Font Awesome CSS-->
+  <link rel="stylesheet" href="/User_home/vendor/font-awesome/css/font-awesome.min.css">
+  <!-- Google fonts - Roboto -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700">
+  <!-- owl carousel-->
+  <link rel="stylesheet" href="/User_home/vendor/owl.carousel/assets/owl.carousel.css">
+  <link rel="stylesheet" href="/User_home/vendor/owl.carousel/assets/owl.theme.default.css">
+  <!-- theme stylesheet-->
+  <link rel="stylesheet" href="/User_home/css/style.default.css" id="theme-stylesheet">
+  <!-- Custom stylesheet - for your changes-->
+  <link rel="stylesheet" href="/User_home/css/custom.css">
+  <!-- Favicon-->
+  <link rel="shortcut icon" href="favicon.png">
+  <!-- Tweaks for older IEs--><!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+  <link rel="stylesheet" href="/magiczoomplus/magiczoomplus.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.js"></script>
+
+
+
+
+
+</head>
+
+<body>
+
+  <!-- navbar-->
+  <header class="header mb-5">
+    <!--
+        *** TOPBAR ***
+        _________________________________________________________
+        -->
+    <div id="top">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 offer mb-3 mb-lg-0"><a href="#" class="btn btn-success btn-sm">Offer of the day</a><a
+              href="#" class="ml-1">Get flat 35% off on orders over $50!</a></div>
+          <div class="col-lg-6 text-center text-lg-right">
+            <ul class="menu list-inline mb-0">
+              <li class="list-inline-item"><a href="/login" data-toggle="modal" data-target="#login-modal">Login</a>
+              </li>
+              <li class="list-inline-item"><a href="/signup">Register</a></li>
+              <li class="list-inline-item"><a href="#">Contact</a></li>
+              <li class="list-inline-item"><a href="#">Recently viewed</a></li>
+              <li class="list-inline-item"><a href="/logout">Logout</a></li>
+
+
+
+
+
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div id="login-modal" tabindex="-1" role="dialog" aria-labelledby="Login" aria-hidden="true" class="modal fade">
+        <div class="modal-dialog modal-sm">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Customer login</h5>
+              <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span
+                  aria-hidden="true">×</span></button>
+            </div>
+            <div class="modal-body">
+              <form action="customer-orders.html" method="post">
+                <div class="form-group">
+                  <input id="email-modal" type="text" placeholder="email" class="form-control">
+                </div>
+                <div class="form-group">
+                  <input id="password-modal" type="password" placeholder="password" class="form-control">
+                </div>
+                <p class="text-center">
+                  <button class="btn btn-primary"><i class="fa fa-sign-in"></i> Log in</button>
+                </p>
+              </form>
+              <p class="text-center text-muted">Not registered yet?</p>
+              <p class="text-center text-muted"><a href="register.html"><strong>Register now</strong></a>! It is easy
+                and done in 1 minute and gives you access to special discounts and much more!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- *** TOP BAR END ***-->
+
+
+    </div>
+    <nav class="navbar navbar-expand-lg">
+      <div class="container"><a href="index.html" class="navbar-brand home"><img src="/User_home/img/aperturelogo.png"
+            alt="aperture" class="d-none d-md-inline-block" width="100px" height="50px">
+          <img src="/User_home/img/aperturelogo.png" alt="aperturelogo" class="d-inline-block d-md-none" width="70px"
+            height="35px"><span class="sr-only">Obaju - go to homepage</span></a>
+        <div class="navbar-buttons">
+          <button type="button" data-toggle="collapse" data-target="#navigation"
+            class="btn btn-outline-secondary navbar-toggler"><span class="sr-only">Toggle navigation</span><i
+              class="fa fa-align-justify"></i></button>
+          <button type="button" data-toggle="collapse" data-target="#search"
+            class="btn btn-outline-secondary navbar-toggler"><span class="sr-only">Toggle search</span><i
+              class="fa fa-search"></i></button>
+          <a href="/product/cart" class="btn btn-outline-secondary navbar-toggler"><i
+              class="fa fa-shopping-cart"></i></a>
+          <a href="/user/account" class="btn btn-outline-secondary navbar-toggler"><i
+              class="fa fa-regular fa-user"></i></a>
+        </div>
+        <div id="navigation" class="collapse navbar-collapse">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item"><a href="/home" class="nav-link ">Home</a></li>
+            <li class="nav-item"><a href="/shop" class="nav-link ">SHOP</a></li>
+
+
+            <li class="nav-item dropdown menu-large"><a href="/contact" data-hover="dropdown" data-delay="200"
+                class=" nav-link">CONTACT<b class="caret"></b></a>
+
+            </li>
+          </ul>
+          <div class="navbar-buttons d-flex justify-content-end">
+            <!-- /.nav-collapse-->
+            <div id="search-not-mobile" class="navbar-collapse collapse"></div><a data-toggle="collapse" href="#search"
+              class="btn navbar-btn btn-primary d-none d-lg-inline-block"><span class="sr-only">Toggle search</span><i
+                class="fa fa-search"></i></a>
+            <div id="basket-overview" class="navbar-collapse collapse d-none d-lg-block"><a href="/product/wishlist"
+                class="btn btn-primary navbar-btn"><i class="fa fa-regular fa-heart"></i><span></span></a></div>
+            <div id="basket-overview" class="navbar-collapse collapse d-none d-lg-block"><a href="/product/cart"
+                class="btn btn-primary navbar-btn"><i class="fa fa-shopping-cart"></i><span>cart</span></a></div>
+            <div id="basket-overview" class="navbar-collapse collapse d-none d-lg-block"><a href="/user/account"
+                class="btn btn-primary navbar-btn"><i class="fa fa-regular fa-user"></i><span></span></a></div>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <div id="search" class="collapse">
+      <div class="container">
+        <form role="search" class="ml-auto">
+          <div class="input-group">
+            <input type="text" id="s" placeholder="Search" class="form-control" onkeyup="filtersearch()">
+            <!-- <input type="text" name="search" id="search-input" class="form-control" placeholder="Search for a product"> -->
+            <div id="livesearch" class="hide"></div>
+            <div class="input-group-append">
+              <button type="button" id="search-button" class="btn btn-primary"><i class="fa fa-search"></i></button>
+
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </header>
+
+
+  <div id="all">
+    <div id="content">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <!-- breadcrumb-->
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li aria-current="page" class="breadcrumb-item active">SHOP</li>
+
+              </ol>
+            </nav>
+          </div>
+          <div class="col-lg-3">
+            <!--
+                *** MENUS AND FILTERS ***
+                _________________________________________________________
+                -->
+            <div class="card sidebar-menu mb-4">
+              <div class="card-header">
+                <h3 class="h4 card-title">Categories</h3>
+              </div>
+              <div class="card-body">
+                <ul class="nav nav-pills flex-column category-menu">
+                  <% if(c_details.length>0){%>
+                    <% for(let i=0;i<c_details.length;i++){ %>
+                      <li>
+
+                        <a href="category.html" class="nav-link">
+                          <%=c_details[i].category %>
+                            <!-- <span class="badge badge-secondary"></span> -->
+                        </a>
+
+                      </li>
+                      <%}%>
+                        <%}%>
+
+                </ul>
+              </div>
+            </div>
+            <div class="card sidebar-menu mb-4">
+              <div class="card-header">
+                <h3 class="h4 card-title">Discount <a href="#" class="btn btn-sm btn-danger pull-right"><i
+                      class="fa fa-times-circle"></i> Clear</a></h3>
+              </div>
+              <div class="card-body">
+                <form>
+                  <div class="form-group">
+                    <div class="checkbox">
+                      <label>
+                        <input type="checkbox"> 0-10%
+                      </label>
+                    </div>
+                    <div class="checkbox">
+                      <label>
+                        <input type="checkbox"> 10-30%
+                      </label>
+                    </div>
+                    <div class="checkbox">
+                      <label>
+                        <input type="checkbox"> 10-50%
+                      </label>
+                    </div>
+                    <div class="checkbox">
+                      <label>
+                        <input type="checkbox"> 50 & above
+                      </label>
+                    </div>
+                  </div>
+                  <button class="btn btn-default btn-sm btn-primary"><i class="fa fa-pencil"></i> Apply</button>
+                </form>
+              </div>
+            </div>
+            <div class="card sidebar-menu mb-4">
+              <div class="card-header">
+                <h3 class="h4 card-title">BRAND <a href="#" class="btn btn-sm btn-danger pull-right"><i
+                      class="fa fa-times-circle"></i> Clear</a></h3>
+              </div>
+              <div class="card-body">
+                <form>
+                  <div class="form-group">
+                    <div class="checkbox">
+                      <label>
+                        <input type="checkbox"><span class="colour white"></span> SONY
+                      </label>
+                    </div>
+                    <div class="checkbox">
+                      <label>
+                        <input type="checkbox"><span class="colour blue"></span> CANON
+                      </label>
+                    </div>
+                    <div class="checkbox">
+                      <label>
+                        <input type="checkbox"><span class="colour green"></span> NIKON
+                      </label>
+                    </div>
+
+                  </div>
+                  <button class="btn btn-default btn-sm btn-primary"><i class="fa fa-pencil"></i> Apply</button>
+                </form>
+              </div>
+            </div>
+            <div class="flex-w flex-l-m filter-tope-group m-tb-10">
+              <a href="/shop" class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 " data-filter="*">
+                All Products
+              </a>
+              <% for( let i=0; i < c_details.length; i++ ) { %>
+
+                <button onclick="categoryfilter('<%= c_details[i]._id %>')" id="fil"
+                  class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 filter-link"
+                  data-filter="<%= c_details[i]._id %>">
+                  <%= c_details[i].category %>
+                </button>
+
+                <% } %>
+            </div>
+            <!-- *** MENUS AND FILTERS END ***-->
+
+          </div>
+          <div class="col-lg-9">
+            <div class="box">
+              <h1>SHOP</h1>
+              <p>In our department we offer wide selection of the best products we have found and carefully selected
+                worldwide.</p>
+            </div>
+            <div class="box info-bar">
+              <div class="row">
+                <div class="col-md-12 col-lg-4 products-showing">Showing <strong>1</strong> of <strong>1</strong>
+                  products</div>
+                <div class="col-md-12 col-lg-7 products-number-sort">
+                  <form class="form-inline d-block d-lg-flex justify-content-between flex-column flex-md-row">
+                    <div class="products-number"><strong>Show</strong><a href="#" class="btn btn-sm btn-primary">1</a><a
+                        href="#" class="btn btn-outline-secondary btn-sm">1</a><a href="#"
+                        class="btn btn-outline-secondary btn-sm">All</a><span>products</span></div>
+                    <div class="products-sort-by mt-2 mt-lg-0"><strong>Sort by</strong>
+                      <select name="sort-by" class="form-control">
+                        <option>Price</option>
+                        <option>Name</option>
+                        <option>Sales first</option>
+                      </select>
+                    </div>
+                  </form>
+                  <div class="products-sort-by mt-2 mt-lg-0"><strong>Sort by</strong>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row products" id="filter">
+
+              <% for(let i=p_details.length-1; i>=0;i--){
+                if(p_details[i].p_is_flaged==0){ %>
+                <div class="col-lg-4 col-md-6">
+                  <div class="product">
+                    <div class="flip-container">
+                      <div class="flipper">
+                        <div class="front"><a href="/product/details?id=<%= p_details[i]._id%>"><img src="/product-images/<%= p_details[i].images[0] %>" alt="" class="img-fluid1 product-image" width="300" height="300">
+</a></div>
+
+                      </div>
+                    </div><a href="/product/details?id=<%= p_details[i]._id%>" class="invisible"><img src="/product-images/<%= p_details[i].images[0] %>" alt="" class="img-fluid1 product-image" width="300" height="300">
+</a>
+                    <div class="text">
+                      <h3><a href="/product/details?id=<%= p_details[i]._id%>">
+                          <%= p_details[i].p_name %>
+                        </a></h3>
+                      <p class="price">
+                        <del></del>₹<%= p_details[i].p_price %>
+                      </p>
+                      <p class="buttons"><a href="/product/details?id=<%= p_details[i]._id%>"
+                          class="btn btn-outline-secondary">View detail</a><a href="/product/cart"
+                          class="btn btn-primary"><i class="fa fa-shopping-cart"></i>Add to cart</a></p>
+                    </div>
+                    <!-- /.text-->
+                  </div>
+                  <!-- /.product            -->
+                </div>
+                <% }%>
+                  <% } %>
+
+
+
+                    <!-- /.products-->
+            </div>
+            <div class="pages">
+              <p class="loadMore"><a href="#" class="btn btn-primary btn-lg"><i class="fa fa-chevron-down"></i> Load
+                  more</a></p>
+              <nav aria-label="Page navigation example" class="d-flex justify-content-center">
+                <ul class="pagination">
+                  <li class="page-item"><a href="#" aria-label="Previous" class="page-link"><span
+                        aria-hidden="true">«</span><span class="sr-only">Previous</span></a></li>
+                  <li class="page-item active"><a href="#" class="page-link">1</a></li>
+                  <li class="page-item"><a href="#" class="page-link">2</a></li>
+                  <li class="page-item"><a href="#" class="page-link">3</a></li>
+                  <li class="page-item"><a href="#" class="page-link">4</a></li>
+                  <li class="page-item"><a href="#" class="page-link">5</a></li>
+                  <li class="page-item"><a href="#" aria-label="Next" class="page-link"><span
+                        aria-hidden="true">»</span><span class="sr-only">Next</span></a></li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+          <!-- /.col-lg-9-->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <%- include ('../userhomeLayout/footer.ejs') %>
+
+    <script>
+
+      // let search
+
+
+      let search
+      let Search
+      let ID
+      let id
+      function submit(Search, id) {
+
+        $.ajax({
+
+          url: `/search?id=${ID}&search=${Search}`,
+          type: "post",
+          dataType: 'json',
+          contentType: 'application/json',
+          // data: JSON.stringify({ search, id }),
+
+          success: (res) => {
+            let html = []
+            console.log(res);
+            console.log(res.p_details[1]);
+            $('#filter').html('')
+            // res.p_details.forEach((element, i) => {
+            for (let i = 0; i < res.p_details.length; i++) {
+              html += `<div class="col-lg-4 col-md-6" >
+                  <div class="product">
+                    <div class="flip-container">
+                      <div class="flipper">
+                        <div class="front"><a href="/product/details?id=${res.p_details[i]._id}"><img
+                              src="/product-images/${res.p_details[i].images[0]}" alt="" class="img-fluid"></a></div>
+                        <div class="back"><a href="/product/details?id=${res.p_details[i]._id}"><img
+                              src="/product-images/${res.p_details[i].images[0]}" alt="" class="img-fluid"></a></div>
+                      </div>
+                    </div><a href="/product/details?id=${res.p_details[i]._id}" class="invisible"><img
+                        src="/product-images/${res.p_details[i].images[0]}" alt="" class="img-fluid"></a>
+                    <div class="text">
+                      <h3><a href="/product/details?id=${res.p_details[i]._id}">
+                        ${res.p_details[i].p_name}
+                        </a></h3>
+                      <p class="price">
+                        <del></del>₹${res.p_details[i].p_price}
+                      </p>
+                      <p class="buttons"><a href="/product/details?id=${res.p_details[i]._id}"
+                          class="btn btn-outline-secondary">View detail</a><a href="/product/cart"
+                          class="btn btn-primary"><i class="fa fa-shopping-cart"></i>Add to cart</a></p>
+                    </div>
+                    <!-- /.text-->
+                  </div>
+                  <!-- /.product            -->
+                </div>`
+
+
+            };
+            let htyu = `<div class="col-lg-4 col-md-6" >;dslknjsjdklvbdf;aodfsk;b psfojkbljxopijpk;jdopgijxk;jndpoj';kjnidfjojbkldfjicho</div>`
+
+            $('#filter').html(html)
+          }
+        })
+
+
+      }
+      
+      function filtersearch() {
+        let search = $('#s').val()
+        Search=search
+        console.log(Search,ID);
+        submit(Search, ID)
+      }
+
+
+      function categoryfilter(id) {
+          ID=id
+          console.log(Search,ID);
+        submit(search,ID)
+
+
+        // $('.xxx').removeClass('active1')
+        // $(`#${id}x`).addClass('active1')
+        // ID = id
+        // submit(id, Search)
+
+      }
+
+    </script>
