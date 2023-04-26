@@ -8,6 +8,7 @@ const userRoute=require('./routes/userRoute');
 const adminRoute=require('./routes/adminRoute');
 const error=require('./routes/404error')
 require('dotenv').config()
+console.log(process.env.DB_CONNECTION_STRING);
 mongoose.connect(process.env.DB_CONNECTION_STRING)
 
 
@@ -19,7 +20,8 @@ app.use(nocache())
 app.use('/',userRoute);
 app.use('/admin',adminRoute)
 app.use('/',error)
-
+console.log(process.env.sessionSecret);
+console.log(process.env.port);
 app.listen(process.env.port,function(){
     console.log("server is running on port :4000")
 

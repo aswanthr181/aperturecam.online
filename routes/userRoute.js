@@ -5,6 +5,7 @@ const session=require('express-session')
 const config=require("../config/config");
 require('dotenv').config()
 
+
 user_route.use(session({
     secret:process.env.sessionSecret,
     resave:true,
@@ -35,6 +36,7 @@ user_route.post('/updateProfile',userController.updateProfile)
 user_route.get('/user/addDefaultAddress',auth.isLogin,userController.loadAddDefaultAddress)
 user_route.post('/addDefaultAddress',userController.addUserAddress)
 
+user_route.get('/',userController.loadHome);
 user_route.get('/home',userController.loadHome);
 user_route.get('/logout',userController.userLogout);
 user_route.get('/contact',userController.loadContact)
