@@ -845,7 +845,7 @@ const loadAddress = async (req, res) => {
         const userData = req.session.user_id
         const user = await User.findById({ _id: userData })
         const cartData = await cartSchema.findOne({ userId: user._id })
-        if (user.address.length > 1) {
+        if (user.address.length >=0) {
 
             let id1
             let id2
@@ -859,8 +859,7 @@ const loadAddress = async (req, res) => {
             addressDetails = user.address[address_Index]
             if (addressDetails) {
                 res.render('address', { addressDetails, cartData })
-            } else {
-
+            } else {               
                 const cartData = await cartSchema.findOne({ userId: user._id })
                 console.log(cartData);
                 addressDetails = user.address[0]
