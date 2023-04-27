@@ -49,7 +49,7 @@ const sendVerifyMail = async (name, email, user_id) => {
             from: 'apertureshoppee@gmail.com',
             to: email,
             subject: 'For verification',
-            html: '<p>Hi ' + name + ', please click here to <a href="http://localhost:4000/verify?id=' + user_id + '">verify</a> your mail.</p>'
+            html: '<p>Hi ' + name + ', please click here to <a href="https://aperturecam.online/verify?id=' + user_id + '">verify</a> your mail.</p>'
         }
         transporter.sendMail(mailOption, function (error, info) {
             if (error) {
