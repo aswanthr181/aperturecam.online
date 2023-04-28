@@ -501,7 +501,7 @@ const removeFromWishlist = async (req, res) => {
         const userData = req.session.user_id
         const user = await User.findOne({ _id: userData })
         const update = await User.updateOne({ _id: user._id }, { $pull: { wishlist: { _id: id } } })
-        console.log(update);
+        
         res.redirect('/product/wishlist')
     } catch (error) {
         console.log(error);
@@ -587,7 +587,7 @@ const addToCart = async (req, res) => {
                 }
             } else {
                 const cartItem = await cartSchema.insertMany({ userId: user._id, item: [{ product: findProduct._id, quantity: 1, price: findProduct.p_price, total: findProduct.p_price }] });
-                console.log(cartItem);
+                
                 sweetalert = "success"
                 alert = 'New Item added to Cart'
                 res.redirect('/product/cart')
@@ -640,7 +640,7 @@ const incItem = async (req, res) => {
 
         const userData = req.session.user_id
         const user = await User.findById({ _id: userData })
-        console.log(user._id);
+        
 
         id = req.query.id
         console.log(id);
@@ -982,7 +982,7 @@ const updateAddress = async (req, res) => {
         updateObj[`address.${index}.email`] = email;
         const updatedaddress = await User.updateOne({ _id: user._id }, { $set: updateObj })
 
-        console.log(updatedaddress);
+        
 
         res.redirect('/user/addresslist')
 
@@ -1022,7 +1022,7 @@ const getpayment = async (req, res) => {
         const cartData = await cartSchema.findOne({ userId: user._id })
         const coupons = await couponSchema.find()
 
-        console.log("chech payment after order");
+        
         res.render('payment', { cartData, user, sweetalert, coupons, order })
         sweetalert = null
 
@@ -1037,10 +1037,10 @@ const applycoupon = async (req, res) => {
         const userData = req.session.user_id
 
         const couponId = req.body.search
-        console.log(req.body.search);
+        
         const cart = await cartSchema.findOne({ userId: userData })
         const coupon = await couponSchema.findOne({ couponId: couponId })
-        console.log(coupon);
+       
         const discount = (coupon.discount / 100)
         let reduction
         if (coupon) {
@@ -1068,10 +1068,10 @@ const couponviamodal = async (req, res) => {
         const userData = req.session.user_id
 
         const couponId = req.query.id
-        console.log(couponId);
+        
         const cart = await cartSchema.findOne({ userId: userData })
         const coupon = await couponSchema.findOne({ couponId: couponId })
-        console.log(coupon);
+        
         const discount = (coupon.discount / 100)
         let reduction
         if (coupon) {
@@ -1108,7 +1108,7 @@ const orderPlaced = async (req, res) => {
 
         const cart = await cartSchema.findOne({ userId: user._id }).populate("item.product")
 
-        console.log(cart);
+        
         const today = new Date();
         const arrivingDate = new Date();
         arrivingDate.setDate(today.getDate() + 5);
@@ -1125,7 +1125,7 @@ const orderPlaced = async (req, res) => {
             }
         })
 
-        console.log(orderItem);
+        
 
         req.session.orderItem = orderItem
         // const grandtotal = cart.item.map((item) => {
@@ -1135,7 +1135,7 @@ const orderPlaced = async (req, res) => {
         // })
         const grandtotal = cart.grandTotalPrice
 
-        console.log(grandtotal);
+        
 
 
         if (payment.payment == "cod") {
@@ -1149,7 +1149,7 @@ const orderPlaced = async (req, res) => {
             });
 
             const saveOrder = await order.save();
-            console.log(saveOrder);
+            
 
             if (saveOrder) {
                 await cartSchema.deleteOne({ userId: user._id })
@@ -1234,7 +1234,7 @@ const orderPlaced = async (req, res) => {
                 });
 
                 const saveOrder = await order.save();
-                console.log(saveOrder);
+                
 
                 if (saveOrder) {
                     await cartSchema.deleteOne({ userId: user._id })

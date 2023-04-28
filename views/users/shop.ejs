@@ -42,7 +42,16 @@
 </head>
 
 <body>
-
+<style>
+  .xxnx{
+    color: aqua;
+    font-weight: 900;
+  }
+  .xxnx:hover{
+    color: rgb(7, 52, 52);
+    font-weight: 900;
+  }
+</style>
   <!-- navbar-->
   <header class="header mb-5">
     <!--
@@ -192,10 +201,13 @@
                     <% for(let i=0;i<c_details.length;i++){ %>
                       <li>
 
-                        <a href="category.html" class="nav-link">
-                          <%=c_details[i].category %>
+                        <p class="nav-link text-uppercase xxnx"
+                          onclick="categoryfilter('<%= c_details[i]._id %>')" id="fil"
+                  class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 filter-link"
+                  data-filter="<%= c_details[i]._id %>">
+                  <%= c_details[i].category %>
                             <!-- <span class="badge badge-secondary"></span> -->
-                        </a>
+                        </p>
 
                       </li>
                       <%}%>
@@ -204,54 +216,9 @@
                 </ul>
               </div>
             </div>
-            <div class="card sidebar-menu mb-4">
-              <div class="card-header">
-                <h3 class="h4 card-title">Discount <a href="#" class="btn btn-sm btn-danger pull-right"><i
-                      class="fa fa-times-circle"></i> Clear</a></h3>
-              </div>
-              <div class="card-body">
-                <form>
-                  <div class="form-group">
-                    <div class="checkbox">
-                      <label>
-                        <input type="checkbox"> 0-10%
-                      </label>
-                    </div>
-                    <div class="checkbox">
-                      <label>
-                        <input type="checkbox"> 10-30%
-                      </label>
-                    </div>
-                    <div class="checkbox">
-                      <label>
-                        <input type="checkbox"> 10-50%
-                      </label>
-                    </div>
-                    <div class="checkbox">
-                      <label>
-                        <input type="checkbox"> 50 & above
-                      </label>
-                    </div>
-                  </div>
-                  <button class="btn btn-default btn-sm btn-primary"><i class="fa fa-pencil"></i> Apply</button>
-                </form>
-              </div>
-            </div>
+            
            
-            <div class="flex-w flex-l-m filter-tope-group m-tb-10">
-              <a href="/shop" class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 " data-filter="*">
-                All Products
-              </a>
-              <% for( let i=0; i < c_details.length; i++ ) { %>
-
-                <button onclick="categoryfilter('<%= c_details[i]._id %>')" id="fil"
-                  class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 filter-link"
-                  data-filter="<%= c_details[i]._id %>">
-                  <%= c_details[i].category %>
-                </button>
-
-                <% } %>
-            </div>
+            
             <!-- *** MENUS AND FILTERS END ***-->
 
           </div>

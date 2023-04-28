@@ -31,7 +31,7 @@ const loadOrderManage = async (req, res) => {
         console.log(orderId,"dxfcgvhbjn======");
 
         const itemData = await orderSchema.findOne({ _id: orderId }).populate("order.product")
-        console.log(itemData);
+        
         res.render('order_manage', { itemData })
     } catch (error) {
         console.log(error);
@@ -46,7 +46,7 @@ const shipOrder = async (req, res) => {
         orderId = req.query.id;
         Shipdate = new Date();
         const cancel = await orderSchema.updateOne({ _id: orderId, 'order._id': shipIndex }, { $set: { "order.$.status": "shipped", "order.$.cancel_date": Shipdate } },)
-        console.log(cancel);
+        
 
         res.redirect('/admin/orderlist')
 
@@ -63,21 +63,17 @@ const acceptReturn = async (req, res) => {
         orderId = req.query.id;
         today = new Date();
         const orderview=await orderSchema.findOne({_id: orderId})
-        console.log(orderview,"123456790");
         const userid=orderview.userId
         const userinfo= await User.findOne({_id:userid})
-        console.log(userinfo,"sdfghjk=========ghij");
         const returnAccept = await orderSchema.updateOne({ _id: orderId, 'order._id': index }, { $set: { "order.$.return": "accepted" } })
 
         const cancelledProduct = await orderSchema.findOne({ _id: orderId })
-        console.log(cancelledProduct);
         const x = cancelledProduct.order.filter((y) => {
             return y._id == index
         })
-        if (x[0].payment_type == "razorpay") {
-            console.log("cancelling razor");
-            const refund = (x[0].price - (x[0].price * 0.10))
-            const razorcancel = await User.updateOne({ _id: userid }, { $set: { wallet: Number(user.wallet) + Number(refund) } })
+        if (cancelledProduct.payment_type == "razorpay") {
+            const refund = (x[0].price - (x[0].price * 0.10))          
+            const razorcancel = await User.updateOne({ _id: userinfo._id}, { $set: { wallet: Number(userinfo.wallet) + Number(refund) } })
 
         }
 
