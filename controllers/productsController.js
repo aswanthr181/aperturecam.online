@@ -149,7 +149,6 @@ const insertProduct = async (req, res) => {
 
         
             const findCategory = await categorySchema.findOne({ category: req.body.category })
-            console.log(findCategory);
             const products = new productSchema({
                 p_name: req.body.p_name,
                 p_brand: req.body.p_brand,
@@ -162,7 +161,7 @@ const insertProduct = async (req, res) => {
 
             });
             const productData = await products.save();
-            console.log(productData);
+          
 
             if (productData) {
 
