@@ -95,56 +95,57 @@ const insertProduct = async (req, res) => {
         const validExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp']; // valid image extensions
        
 
-        for (let i = 0; i < req.files.length; i++) {
-            const extension = req.files[i].filename.split('.').pop().toLowerCase(); // get the file extension
-            if (validExtensions.includes(extension)) { // check if the file extension is valid
-                let image = req.files.map((file) => file);
-                console.log(image, 'ldshfaidhsfo');
-                for (i = 0; i < req.files.length; i++) {
-                    let path = image[i].path;
-                    const processImage = new Promise((resolve, reject) => {
-                        sharp(path)
-                            .rotate()
-                            .resize(253, 200)
-                            .toFile("public/product-images/" + image[i].filename, (err) => {
-                                sharp.cache(false);
-                                if (err) {
-                                    console.log(err);
-                                    reject(err);
-                                } else {
-                                    console.log(`Processed file: ${path}`);
-                                    resolve();
-                                }
-                            });
-                    });
-                    processImage
-                        .then(() => {
-                            fs.unlink(path, (err) => {
-                                if (err) {
-                                    console.log(err);
-                                } else {
-                                    console.log(`Deleted file: ${path}`);
-                                }
-                            });
-                        })
-                        .catch((err) => {
-                            console.log(err);
-                        });
-
-                } // add the image filename to the array
-            }
-        }
-
-        // let images = []
         // for (let i = 0; i < req.files.length; i++) {
-        //     images[i] = req.files[i].filename
+        //     const extension = req.files[i].filename.split('.').pop().toLowerCase(); // get the file extension
+        //     if (validExtensions.includes(extension)) { // check if the file extension is valid
+        //         let image = req.files.map((file) => file);
+        //         console.log(image, 'ldshfaidhsfo');
+        //         for (i = 0; i < req.files.length; i++) {
+        //             let path = image[i].path;
+        //             const processImage = new Promise((resolve, reject) => {
+        //                 sharp(path)
+        //                     .rotate()
+        //                     .resize(253, 200)
+        //                     .toFile("public/product-images/" + image[i].filename, (err) => {
+        //                         sharp.cache(false);
+        //                         if (err) {
+        //                             console.log(err);
+        //                             reject(err);
+        //                         } else {
+        //                             console.log(`Processed file: ${path}`);
+        //                             resolve();
+        //                         }
+        //                     });
+        //             });
+        //             processImage
+        //                 .then(() => {
+        //                     fs.unlink(path, (err) => {
+        //                         if (err) {
+        //                             console.log(err);
+        //                         } else {
+        //                             console.log(`Deleted file: ${path}`);
+        //                         }
+        //                     });
+        //                 })
+        //                 .catch((err) => {
+        //                     console.log(err);
+        //                 });
+
+        //         } // add the image filename to the array
+        //     }
         // }
+
+        let images = []
+        for (let i = 0; i < req.files.length; i++) {
+            images[i] = req.files[i].filename
+        }
         console.log("insert product start");
-        // if (images.length < 1) {
-        //     sweetalert = "success"
-        //     alert = 'please select image or check valid extensions'
-        //     res.redirect('/admin/productlist')
-        //     sweetalert = null
+        if (images.length < 1) {
+            sweetalert = "success"
+            alert = 'please select image or check valid extensions'
+            res.redirect('/admin/productlist')
+            sweetalert = null
+        }
 
         
             const findCategory = await categorySchema.findOne({ category: req.body.category })
@@ -155,7 +156,7 @@ const insertProduct = async (req, res) => {
                 p_description: req.body.p_description,
                 p_price: req.body.p_price,
                 p_stock: req.body.p_stock,
-                images:req.files.map((file) => file.filename),
+                images:images,
                 p_catogory: findCategory._id,
                 p_is_flaged: 0
 
@@ -283,6 +284,7 @@ const updateProduct = async (req, res) => {
 
 const deleteProduct = async (req, res) => {
     try {
+        console.log("szdxfcvbn delete prdt");
         const Data = await productSchema.findOne({ _id: req.query.id })
         if (Data.p_is_flaged == 0) {
             const deleteInfo = await productSchema.updateOne({ _id: req.query.id }, { $set: { p_is_flaged: 1 } })

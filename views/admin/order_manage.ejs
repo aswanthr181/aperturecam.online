@@ -63,7 +63,7 @@
   <section class="mt-5 mb-5">
     <div class="container">
       <div class="row">
-        <section class="p-1" style="background-color: rgb(97, 115, 115);">
+        <section class="p-1 w-100" style="background-color: rgb(97, 115, 115);">
           <section class="container-xl  ">
             
                 <div class="col-12">
@@ -102,9 +102,7 @@
                               <%= itemData.order[i].product.p_name %> (Item<%=itemData.order[i].quantity%>)
                             </h6>
 
-                            <h5><span class="mx-2">₹<%= itemData.order[i].price %></span><br><small
-                                class="mx-2 text-danger text-decoration-line-through">₹<%= itemData.order[i].price %>
-                              </small><span class="text-success mx-2">18% off</span></h5>
+                            <h5><span class="mx-2">₹<%= itemData.order[i].price %></span><br><span class="text-success mx-2">18% off</span></h5>
 
                           </div>
                           <!--  -->
@@ -118,20 +116,22 @@
                             </small>
 
                             <span class="bg-success mx-2" style="height: 3px; width: 80%;"></span>
-                            <% if(itemData.order[i].status=='pending' ){ %>
+                            <% if(itemData.order[i].status=='pending' || itemData.order[i].status=='shipped' ){ %>
                               <small class="text-nowrap">DELIVERY DATE
                                 <br>
                                 <%= new Date(itemData.order[i].arriving_date).toLocaleDateString()%>
                               </small>
                               <%}else{%>
                                 <% if(itemData.order[i].status=='cancelled' ){ %>
-                                  <small class="text-nowrap text-danger">CANCELLED DATE</small>
+                                  <small class="text-nowrap text-danger">CANCELLED DATE
                                   <br>
                                   <%= new Date(itemData.order[i].cancel_date).toLocaleDateString()%>
+                                </small>
                                     <% }else{ %>
-                                      <small class="text-nowrap">DELIVERY DATE</small>
+                                      <small class="text-nowrap">
                                       <br>
-                                      <%= new Date(itemData.order[i].arriving_date).toLocaleDateString()%>
+                                      
+                                    </small>
                                         <% } %>
                                           <% } %>
                           </div>
@@ -160,24 +160,24 @@
                           <h6 class="me-3"><b>TOTAL PRICE:</b>₹<%= itemData.order[i].price %>
                           </h6>
                           <% }else if(itemData.order[i].status=='shipped' ){ %>
-                            <h6 class="me-3"><b>ITEM SHIPPED ON:</b>₹<%= itemData.order[i].cancel_date%>
+                            <h6 class="me-3"><b>ITEM SHIPPED ON:</b>₹<%= new Date(itemData.order[i].cancel_date).toLocaleDateString()%>
                             </h6>
                             <% }else if(itemData.order[i].status=='delivered' && itemData.order[i].return==null){ %>
-                              <h6 class="me-3"><b>ITEM SHIPPED ON:</b>₹<%= itemData.order[i].cancel_date%>
+                              <h6 class="me-3"><b>ITEM SHIPPED ON:</b>₹<%= new Date(itemData.order[i].cancel_date).toLocaleDateString()%>
                               </h6><br>
-                              <h6 class="me-3"><b>ITEM DELIVERED ON:</b>₹<%= itemData.order[i].delivered_date%>
+                              <h6 class="me-3"><b>ITEM DELIVERED ON:</b>₹<%= new Date(itemData.order[i].delivered_date).toLocaleDateString()%>
                               </h6>
                               <% }else if( itemData.order[i].return=="requested" ){ %>
-                                <h6 class="me-3"><b>ITEM SHIPPED ON:</b>₹<%= itemData.order[i].cancel_date%>
+                                <h6 class="me-3"><b>ITEM SHIPPED ON:</b>₹<%= new Date(itemData.order[i].cancel_date).toLocaleDateString()%>
                                     </h5><br>
-                                    <h6 class="me-3"><b>ITEM DELIVERED ON:</b>₹<%= itemData.order[i].delivered_date%>
+                                    <h6 class="me-3"><b>ITEM DELIVERED ON:</b>₹<%= new Date(itemData.order[i].delivered_date).toLocaleDateString()%>
                                     </h6>
                                     <a href="/admin/returnAccept?returnIndex=<%= itemData.order[i]._id%>&id=<%= itemData._id %>"
                                       class="text-warning btn btn-primary text-danger">ACCEPT</a>
                                     <% }else if( itemData.order[i].return=="accepted" ){ %>
-                                      <h6 class="me-3"><b>ITEM SHIPPED ON:</b>₹<%= itemData.order[i].cancel_date%>
+                                      <h6 class="me-3"><b>ITEM SHIPPED ON:</b>₹<%= new Date(itemData.order[i].cancel_date).toLocaleDateString()%>
                                       </h6><br>
-                                      <h6 class="me-3"><b>ITEM DELIVERED ON:</b>₹<%= itemData.order[i].delivered_date%>
+                                      <h6 class="me-3"><b>ITEM DELIVERED ON:</b>₹<%= new Date(itemData.order[i].delivered_date).toLocaleDateString()%>
                                       </h6>
 
 

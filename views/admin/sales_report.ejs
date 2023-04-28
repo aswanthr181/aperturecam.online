@@ -20,8 +20,8 @@
             </a>
           </li>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="/admin/userlist" id="navbarDropdown" role="button" data-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false">
+            <a class="nav-link dropdown-toggle" href="/admin/userlist" id="navbarDropdown" role="button"
+              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <i class="far fa-file-alt"></i>
               <span> User List </span>
             </a>
@@ -98,7 +98,7 @@
         </div>
       </div>
 
-      
+
       </div>
 
     </section>
@@ -107,54 +107,54 @@
   </section>
   <div class="container mt-5">
     <div class="row tm-content-row">
-        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 tm-block-col">
-            <div class="tm-bg-primary-dark tm-block tm-block-products">
-                <div class="tm-product-table-container">
-                    <table class="table table-hover tm-table-small tm-product-table">
-                      <thead class="mt-4">
-                        <tr>
-                          <th scope="col">NO</th>
-                          <th scope="col">NAME</th>
-                          <th scope="col">PRODUCT</th>
-                          <th scope="col">DATE</th>
-                          <th scope="col">PRICE</th>
-                        </tr>
-                      </thead>
+      <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 tm-block-col">
+        <div class="tm-bg-primary-dark tm-block tm-block-products">
+          <div class="tm-product-table-container">
+            <table class="table table-hover tm-table-small tm-product-table" id="salesTable">
+              <thead class="mt-4">
+                <tr>
+                  <th scope="col">NO</th>
+                  <th scope="col">NAME</th>
+                  <th scope="col">PRODUCT</th>
+                  <th scope="col">DATE</th>
+                  <th scope="col">PRICE</th>
+                </tr>
+              </thead>
 
-                      <tbody>
-                        <% filterData.forEach((value,i)=>{%>
-            
-            
-                          <tr>
-                            <th scope="row">
-                              <%= i+1 %>
-                            </th>
-                            <td>
-                              <%= value.address.name %>
-                            </td>
-                            <td>
-                              <%= value.order[0].product.p_name%>
-                            </td>
-                            <td>
-                              <%=new Date(value.order[0].order_date).toLocaleDateString('en-GB')%>
-                            </td>
-            
-                            <td>₹<%= value.order[0].price%>
-                            </td>
-                          </tr>
-                          <% })%>
-            
-                      </tbody>
+              <tbody>
+                <% filterData.forEach((value,i)=>{%>
 
-                    </table>
-                  </div>
-                </div>
-              </div>
+
+                  <tr>
+                    <th scope="row">
+                      <%= i+1 %>
+                    </th>
+                    <td>
+                      <%= value.address.name %>
+                    </td>
+                    <td>
+                      <%= value.order[0].product.p_name%>
+                    </td>
+                    <td>
+                      <%=new Date(value.order[0].order_date).toLocaleDateString('en-GB')%>
+                    </td>
+
+                    <td>₹<%= value.order[0].price%>
+                    </td>
+                  </tr>
+                  <% })%>
+
+              </tbody>
+
+            </table>
           </div>
+        </div>
       </div>
+    </div>
+  </div>
   <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
 
-  <script>
+  <!-- <script>
 
     function demoFromHTML() {
       console.log('hdbvj');
@@ -168,6 +168,28 @@
         setTimeout(function () { newWin.close(); }, 10);
       }
 
+    }
+  </script> -->
+  <script>
+    function demoFromHTML() {
+      var table = document.getElementById("salesTable");
+      if (!table) {
+        console.error("Table element not found.");
+        return;
+      }
+      var newWin = window.open('', 'Print-Window');
+      if (!newWin) {
+        console.error("Could not open print window.");
+        return;
+      }
+      newWin.document.open();
+      newWin.document.write('<html><body onload="window.print()">' + table.outerHTML + '</html>');
+      newWin.document.close();
+      setTimeout(function () {
+        if (!newWin.closed) {
+          newWin.close();
+        }
+      }, 1000);
     }
   </script>
 
